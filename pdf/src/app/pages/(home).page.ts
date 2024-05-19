@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
-
-import { AnalogWelcomeComponent } from './analog-welcome.component';
+import { HttpClient } from "@angular/common/http";
+import { Component, inject } from "@angular/core";
 
 @Component({
-  selector: 'pdf-home',
+  selector: "pdf-home",
   standalone: true,
-  imports: [AnalogWelcomeComponent],
-  template: `
-     <pdf-analog-welcome/>
-  `,
+  imports: [],
+  template: ` <button (click)="test()">TEST</button> `,
 })
 export default class HomeComponent {
+  private http = inject(HttpClient);
+  test() {
+    this.http.get("api/v1/hello").subscribe(console.log);
+  }
 }
