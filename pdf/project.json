@@ -1,0 +1,57 @@
+{
+  "name": "pdf",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@analogjs/platform:vite",
+      "defaultConfiguration": "production",
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "sourcemap": false,
+          "mode": "production"
+        }
+      },
+      "outputs": [
+        "{options.outputPath}",
+        "{workspaceRoot}/dist/pdf/.nitro",
+        "{workspaceRoot}/dist/pdf/ssr",
+        "{workspaceRoot}/dist/pdf/analog"
+      ],
+      "options": {
+        "main": "pdf/src/main.ts",
+        "configFile": "pdf/vite.config.ts",
+        "outputPath": "dist/pdf/client",
+        "tsConfig": "pdf/tsconfig.app.json"
+      }
+    },
+    "serve": {
+      "executor": "@analogjs/platform:vite-dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "pdf:build",
+        "port": 4200
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "pdf:build:development",
+          "hmr": true
+        },
+        "production": {
+          "buildTarget": "pdf:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@analogjs/platform:vitest",
+      "outputs": [
+        "{projectRoot}/coverage"
+      ]
+    }
+  },
+  "tags": [],
+  "sourceRoot": "./pdf/src"
+}
