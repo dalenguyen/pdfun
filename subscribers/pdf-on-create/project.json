@@ -1,0 +1,97 @@
+{
+  "name": "pdf-on-create",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "subscribers/pdf-on-create/src",
+  "projectType": "application",
+  "tags": ["type:app"],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/subscribers/pdf-on-create",
+        "outputFileName": "main.js",
+        "format": ["cjs"],
+        "bundle": false,
+        "compiler": "tsc",
+        "main": "subscribers/pdf-on-create/src/main.ts",
+        "tsConfig": "subscribers/pdf-on-create/tsconfig.app.json",
+        "assets": ["subscribers/pdf-on-create/src/assets"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "generateLockfile": true,
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "pdf-on-create:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "pdf-on-create:build:development"
+        },
+        "production": {
+          "buildTarget": "pdf-on-create:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "subscribers/pdf-on-create/jest.config.ts"
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx deploy-docker pdf-on-create",
+          "nx deploy-cloudrun pdf-on-create"
+        ],
+        "color": true,
+        "parallel": false
+      },
+      "dependsOn": [
+        {
+          "target": "build"
+        }
+      ]
+    },
+    "deploy-docker": {
+      "command": "./build-new-image.sh --dir dist/subscribers/pdf-on-create --image pdf-on-create",
+      "parallel": false,
+      "dependsOn": [
+        {
+          "target": "copy"
+        }
+      ]
+    },
+    "deploy-cloudrun": {
+      "command": "gcloud run deploy pdf-on-create --image=us-central1-docker.pkg.dev/pdfun-prod/pdf/pdf-on-create --platform=managed --project=pdfun-prod --region=us-central1 --no-allow-unauthenticated"
+    },
+    "copy": {
+      "command": "cp subscribers/pdf-on-create/Dockerfile dist/subscribers/pdf-on-create"
+    }
+  }
+}

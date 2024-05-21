@@ -50,7 +50,7 @@
       "outputs": ["{projectRoot}/coverage"]
     },
     "deploy": {
-      "command": "gcloud run deploy pdfun --image us-central1-docker.pkg.dev/dalenguyen-prod/pdf/pdfun:latest --region us-central1 --project dalenguyen-prod"
+      "command": "gcloud run deploy pdfun --image us-central1-docker.pkg.dev/pdfun-prod/pdf/pdfun:latest --region us-central1 --project pdfun-prod"
     }
   },
   "tags": [],

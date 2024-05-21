@@ -1,5 +1,5 @@
 # from the dropdown at the top of Cloud Console:
-export GCLOUD_PROJECT="dalenguyen-prod"
+export GCLOUD_PROJECT="pdfun-prod"
 # from Step 2.2 above:
 export REPO="pdf"
 # the region you chose in Step 2.4:
