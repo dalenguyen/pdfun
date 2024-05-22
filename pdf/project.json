@@ -50,7 +50,35 @@
       "outputs": ["{projectRoot}/coverage"]
     },
     "deploy": {
-      "command": "gcloud run deploy pdfun --image us-central1-docker.pkg.dev/pdfun-prod/pdf/pdfun:latest --region us-central1 --project pdfun-prod"
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx deploy-docker pdf",
+          "nx deploy-cloudrun pdf"
+        ],
+        "color": true,
+        "parallel": false
+      },
+      "dependsOn": [
+        {
+          "target": "build"
+        }
+      ]
+    },
+    "deploy-cloudrun": {
+      "command": "gcloud run deploy pdfun --image=us-central1-docker.pkg.dev/pdfun-prod/pdf/pdfun --platform=managed --project=pdfun-prod --region=us-central1 --allow-unauthenticated"
+    },
+    "deploy-docker": {
+      "command": "./build-new-image.sh --dir dist/pdf/analog --image pdfun",
+      "parallel": false,
+      "dependsOn": [
+        {
+          "target": "copy"
+        }
+      ]
+    },
+    "copy": {
+      "command": "cp pdf/Dockerfile dist/pdf/analog"
     }
   },
   "tags": [],

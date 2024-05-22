@@ -1,9 +1,19 @@
-// {
-//   "terminal.integrated.profiles.osx": {
-//     "x86 bash": {
-//       "path": "/usr/bin/arch",
-//       "args": ["-arch", "x86_64", "/bin/bash"]
-//     }
-//   },
-//   "terminal.integrated.defaultProfile.osx": "x86 bash"
-// }
+{
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features",
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": "explicit"
+        },
+        "editor.formatOnSave": true
+    },
+    "angular-schematics.schematicsDefaultOptions": {
+        "angular-*": {
+            "skipStyle": true
+        }
+    },
+    "svg.preview.background": "white",
+}
