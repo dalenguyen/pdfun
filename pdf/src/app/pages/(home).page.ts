@@ -5,16 +5,10 @@ import {
   ref,
   uploadBytesResumable,
 } from '@angular/fire/storage'
-import {
-  Firestore,
-  doc,
-  docData,
-  getDoc,
-  setDoc,
-} from '@angular/fire/firestore'
+import { Firestore, doc, docData, setDoc } from '@angular/fire/firestore'
 import { nanoid } from 'nanoid'
 import { CommonModule } from '@angular/common'
-import { EMPTY, filter, map, switchMap, tap } from 'rxjs'
+import { EMPTY, filter, switchMap } from 'rxjs'
 
 @Component({
   selector: 'pdf-home',

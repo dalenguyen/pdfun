@@ -1,4 +1,3 @@
-import { Storage, getStorage } from '@angular/fire/storage'
 import { isPlatformBrowser } from '@angular/common'
 import { InjectionToken, PLATFORM_ID, inject } from '@angular/core'
 import { Auth } from '@angular/fire/auth'
