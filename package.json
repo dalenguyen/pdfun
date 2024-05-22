@@ -2,7 +2,9 @@
   "name": "@pdfun/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build": "npx nx build pdf"
+  },
   "private": true,
   "dependencies": {
     "@analogjs/content": "^1.2.0",
