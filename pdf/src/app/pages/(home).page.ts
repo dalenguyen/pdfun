@@ -30,6 +30,8 @@ import { EMPTY, filter, map, switchMap, tap } from 'rxjs'
       Upload
     </button>
 
+    <!-- TODO: add loading stating -->
+
     <br />
     <em class="my-4 block"
       >* Disclaimer: File uploaded is public accessible and will be deleted
@@ -54,9 +56,10 @@ export default class HomeComponent {
   pdf$ = docData(this.docRef)
 
   downloadUrl$ = this.pdf$.pipe(
-    filter((doc) => !!doc?.['fullPath']),
+    filter((doc) => !!doc?.['resizedFullPath']),
     switchMap((doc) => {
-      return this.getPdfDownloadLink(doc?.['fullPath'])
+      // TODO: add error handling where `resizedFullPath` will have `error` as the value where the resize process failed
+      return this.getPdfDownloadLink(doc?.['resizedFullPath'])
     })
   )
 

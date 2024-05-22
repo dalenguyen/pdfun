@@ -17,6 +17,8 @@
     "@angular/platform-browser-dynamic": "^17.2.0",
     "@angular/platform-server": "^17.2.0",
     "@angular/router": "^17.2.0",
+    "@google-cloud/firestore": "^7.7.0",
+    "@google-cloud/storage": "^7.11.1",
     "firebase-admin": "^12.1.0",
     "firebase-functions": "^5.0.1",
     "front-matter": "^4.0.2",
