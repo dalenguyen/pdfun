@@ -1,14 +1,15 @@
+import { CommonModule } from '@angular/common'
 import { Component, inject, signal } from '@angular/core'
+import { Firestore, doc, docData, setDoc } from '@angular/fire/firestore'
 import {
   Storage,
   getDownloadURL,
   ref,
   uploadBytesResumable,
 } from '@angular/fire/storage'
-import { Firestore, doc, docData, setDoc } from '@angular/fire/firestore'
 import { nanoid } from 'nanoid'
-import { CommonModule } from '@angular/common'
 import { EMPTY, filter, switchMap } from 'rxjs'
+import { bytesToMegaBytes, getNextDays } from '../shared/utils'
 
 @Component({
   selector: 'pdf-home',
@@ -26,6 +27,14 @@ import { EMPTY, filter, switchMap } from 'rxjs'
 
     <!-- TODO: add loading stating -->
 
+    @if(loading()) {
+      <p>File is processing, please wait for a moment :)</p>
+    }
+
+    @if(errorMessage()) {
+      <p class="text-red-500">{{errorMessage()}}</p>
+    }
+
     <br />
     <em class="my-4 block"
       >* Disclaimer: File uploaded is public accessible and will be deleted
@@ -36,7 +45,7 @@ import { EMPTY, filter, switchMap } from 'rxjs'
     <!-- <pre>{{ pdf$ | async | json }}</pre> -->
 
     @if(downloadUrl$ | async; as downloadUrl) {
-    <a class="my-4" [href]="downloadUrl" target="_blank">Download PDF</a>
+    <a class="my-4 underline" [href]="downloadUrl" target="_blank">Download PDF</a>
     }
   `,
 })
@@ -49,10 +58,14 @@ export default class HomeComponent {
   docRef = doc(this.firestore, `public/${this.currentID}`)
   pdf$ = docData(this.docRef)
 
+  loading = signal(false)
+  errorMessage = signal('')
+
   downloadUrl$ = this.pdf$.pipe(
     filter((doc) => !!doc?.['resizedFullPath']),
     switchMap((doc) => {
       // TODO: add error handling where `resizedFullPath` will have `error` as the value where the resize process failed
+      this.loading.set(false)
       return this.getPdfDownloadLink(doc?.['resizedFullPath'])
     })
   )
@@ -63,12 +76,27 @@ export default class HomeComponent {
     const files: FileList = input.files
 
     // TODO: only limit 1 file for public release
-    if (files.length > 1) return
+    if (files.length !== 1) return
+
+    this.loading.set(true)
+    this.errorMessage.set('')
 
     for (let i = 0; i < files.length; i++) {
       const file = files.item(i)
       if (file) {
-        const fileName = file.name.split('.').join(`-${String(Date.now())}.`)
+        const fileSize = bytesToMegaBytes(file.size)
+
+        console.log({ fileSize })
+
+        if (fileSize > 10) {
+          this.loading.set(false)
+          this.errorMessage.set('File size is greater than 10MB. Please try another one!')
+          return
+        }
+
+        // having default naming convention pdf-124551515.pdf
+        // to prevent empty space to cause issue when resizing
+        const fileName = `pdfun-${String(Date.now())}.pdf`
 
         const storageRef = ref(this.storage, `public/${fileName}`)
         const result = await uploadBytesResumable(storageRef, file)
@@ -86,11 +114,16 @@ export default class HomeComponent {
             createdAt: new Date().toISOString(),
             updatedAt: result.metadata.updated,
             // Document will be deleted in 1 day
-            expiresOn: this.getNextDays(),
+            expiresOn: getNextDays(),
           })
+        } else {
+          this.loading.set(false)
+          this.errorMessage.set('Failed to upload file. Please try again later.')
         }
       }
     }
+
+
   }
 
   async getPdfDownloadLink(path: string) {
@@ -99,14 +132,8 @@ export default class HomeComponent {
       return getDownloadURL(fileRef)
     } catch (error) {
       console.error(error)
+      this.errorMessage.set((error as Error).message)
       return EMPTY
     }
-  }
-
-  // TODO: move to util
-  private getNextDays(currentDate = new Date(), daysToAdd = 1) {
-    const nextDate = new Date(currentDate)
-    nextDate.setDate(currentDate.getDate() + daysToAdd)
-    return nextDate
   }
 }

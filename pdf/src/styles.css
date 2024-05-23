@@ -2,7 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
-display: block;
-height: 100%;
+html,
+body {
+  display: block;
+  height: 100%;
+  max-width: 786px;
+  margin: 0 auto;
 }
