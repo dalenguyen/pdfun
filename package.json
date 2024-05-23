@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "npx nx build pdf"
+    "build": "npx nx build pdf",
+    "deploy": "npx nx affected -t deploy --base=main~1 --head=main"
   },
   "private": true,
   "dependencies": {
