@@ -30,7 +30,10 @@ export GOOGLE_APPLICATION_CREDENTIALS="/home/user/Downloads/service-account-file
 
 ## TODO
 
-[] Improve deployment target for pdf app
-[] Improve loading state
-[] Add analytics
-[] Add UI lib
+[x] Improve deployment target for pdf app
+
+[x] Improve loading state
+
+[x] Add analytics
+
+[ ] Add UI lib

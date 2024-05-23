@@ -22,6 +22,27 @@
 
       gtag('config', 'G-PWZC78MK72')
     </script>
+
+    <!-- Logichat -->
+    <script
+      src="https://sdk.logichat.io/js/widget.js?appId=lg_A0ODE1Nz"
+      defer
+      id="logichat-sdk"
+    ></script>
+
+    <script>
+      // SDK events
+      const eventTypes = ['sdkLoaded', 'iframeResized']
+
+      // Global callback
+      function onLogichatEvent(event) {
+        if (event.type === 'sdkLoaded') {
+          const element = $logichat.V1.createElement('faq', {})
+          element.mount('#logichat-faq-widget')
+        }
+      }
+    </script>
+    <!-- End Logichat -->
   </head>
   <body>
     <pdf-root></pdf-root>
