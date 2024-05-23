@@ -5,5 +5,16 @@
   },
   "storage": {
     "rules": "storage.rules"
+  },
+  "hosting": {
+    "rewrites": [
+      {
+        "source": "**",
+        "run": {
+          "serviceId": "pdfun",
+          "region": "us-central1"
+        }
+      }
+    ]
   }
 }
