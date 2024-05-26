@@ -1,10 +1,11 @@
-import { ApplicationConfig } from '@angular/core'
-import { provideHttpClient, withFetch } from '@angular/common/http'
-import { provideClientHydration } from '@angular/platform-browser'
 import { provideFileRouter } from '@analogjs/router'
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app'
-import { provideStorage, getStorage } from '@angular/fire/storage'
+import { provideHttpClient, withFetch } from '@angular/common/http'
+import { ApplicationConfig } from '@angular/core'
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app'
 import { getFirestore, provideFirestore } from '@angular/fire/firestore'
+import { getStorage, provideStorage } from '@angular/fire/storage'
+import { provideClientHydration } from '@angular/platform-browser'
+import { provideAnimations } from '@angular/platform-browser/animations'
 
 const firebaseConfig = JSON.parse(import.meta.env['VITE_FIREBASE_CONFIG'])
 export const appConfig: ApplicationConfig = {
@@ -12,6 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideFileRouter(),
     provideClientHydration(),
     provideHttpClient(withFetch()),
+    provideAnimations(),
 
     // Firebase
     provideFirebaseApp(() => initializeApp(firebaseConfig)),

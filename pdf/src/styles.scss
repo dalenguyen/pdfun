@@ -1,0 +1,26 @@
+@layer tailwind-base, tailwind-utilities, primeng;
+
+@layer tailwind-base {
+  @tailwind base;
+}
+
+@layer tailwind-utilities {
+  @tailwind utilities;
+}
+
+@import 'primeng/resources/themes/tailwind-light/theme.css';
+@import 'primeng/resources/primeng.css';
+@import 'primeicons/primeicons.css';
+
+:root {
+  --font-family: 'Raleway', sans-serif;
+}
+
+html,
+body {
+  display: block;
+  height: 100%;
+  max-width: 786px;
+  margin: 0 auto;
+  font-family: var(--font-family);
+}

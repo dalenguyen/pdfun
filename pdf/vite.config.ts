@@ -1,8 +1,8 @@
 /// <reference types="vitest" />
 
 import analog from '@analogjs/platform'
-import { defineConfig, splitVendorChunkPlugin } from 'vite'
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin'
+import { defineConfig, splitVendorChunkPlugin } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -18,7 +18,8 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       fs: {
-        allow: ['.', '../libs'],
+        // '..' is for primeicons
+        allow: ['.', '../libs', '..'],
       },
     },
     vite: {
@@ -30,6 +31,9 @@ export default defineConfig(({ mode }) => {
       analog({
         nitro: {
           preset: 'node-server',
+        },
+        vite: {
+          inlineStylesExtension: 'scss',
         },
       }),
 
