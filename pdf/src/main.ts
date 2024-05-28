@@ -1,9 +1,8 @@
-import 'zone.js';
-import { bootstrapApplication } from '@angular/platform-browser';
+// TODO: remove after @angular/fire supports zoneless
+import { bootstrapApplication } from '@angular/platform-browser'
+import 'zone.js'
 
-import { AppComponent } from './app/app.component';
-import { appConfig } from './app/app.config';
+import { AppComponent } from './app/app.component'
+import { appConfig } from './app/app.config'
 
-bootstrapApplication(AppComponent, appConfig).catch((err) =>
-  console.error(err)
-);
+bootstrapApplication(AppComponent, appConfig).catch((err) => console.error(err))
