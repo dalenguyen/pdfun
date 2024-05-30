@@ -5,15 +5,17 @@ import {
   provideExperimentalZonelessChangeDetection,
 } from '@angular/core'
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app'
+import { getAuth, provideAuth } from '@angular/fire/auth'
 import { getFirestore, provideFirestore } from '@angular/fire/firestore'
 import { getStorage, provideStorage } from '@angular/fire/storage'
 import { provideClientHydration } from '@angular/platform-browser'
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
+import { withComponentInputBinding } from '@angular/router'
 
 const firebaseConfig = JSON.parse(import.meta.env['VITE_FIREBASE_CONFIG'])
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideFileRouter(),
+    provideFileRouter(withComponentInputBinding()),
     provideHttpClient(withFetch()),
     provideAnimationsAsync(),
     // If Angular hasn't start yet,
@@ -25,6 +27,7 @@ export const appConfig: ApplicationConfig = {
     provideExperimentalZonelessChangeDetection(),
     // Firebase
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideAuth(() => getAuth()),
     provideStorage(() => getStorage()),
     provideFirestore(() => getFirestore()),
   ],

@@ -24,7 +24,13 @@ export default defineConfig(({ mode }) => {
     },
     vite: {
       ssr: {
-        noExternal: ['shelljs', '@angular/fire/**'],
+        noExternal: [
+          'shelljs',
+          'firebase/**',
+          'firebase-admin/**',
+          'ngx-cookie-service/**',
+          'ngx-cookie-service-ssr/**',
+        ],
       },
     },
     plugins: [
@@ -35,6 +41,7 @@ export default defineConfig(({ mode }) => {
         vite: {
           inlineStylesExtension: 'scss',
         },
+        ssr: false,
       }),
 
       nxViteTsPaths(),
