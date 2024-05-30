@@ -52,10 +52,7 @@
     "deploy": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "nx deploy-docker pdf",
-          "nx deploy-cloudrun pdf"
-        ],
+        "commands": ["nx deploy-docker pdf", "nx deploy-cloudrun pdf"],
         "color": true,
         "parallel": false
       },

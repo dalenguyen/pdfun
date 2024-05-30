@@ -1,3 +1,4 @@
+import { RouteMeta } from '@analogjs/router'
 import { CommonModule } from '@angular/common'
 import { Component, inject, signal } from '@angular/core'
 import { Firestore, doc, docData, setDoc } from '@angular/fire/firestore'
@@ -14,6 +15,10 @@ import { FileUploadHandlerEvent, FileUploadModule } from 'primeng/fileupload'
 import { ToastModule } from 'primeng/toast'
 import { EMPTY, filter, switchMap } from 'rxjs'
 import { bytesToMegaBytes, getNextDays } from '../shared/utils'
+
+export const routeMeta: RouteMeta = {
+  title: 'PDFun - Resize',
+}
 
 @Component({
   selector: 'pdf-home',
