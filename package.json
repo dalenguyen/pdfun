@@ -39,7 +39,7 @@
     "nanoid": "^5.0.7",
     "ngx-cookie-service": "^18.0.0",
     "primeicons": "^7.0.0",
-    "primeng": "^17.17.0",
+    "primeng": "17.18.0",
     "prismjs": "^1.29.0",
     "rxjs": "~7.5.6",
     "shelljs": "^0.8.5",

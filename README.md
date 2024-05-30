@@ -2,16 +2,12 @@
 
 PDF utilities
 
-## Deploy image
+![PDFun Demo](/docs/images/pdfun.png)
+
+## Deploy applications
 
 ```
-./deploy.sh
-```
-
-## Deploy application
-
-```
-npx nx deploy pdf
+yarn deploy
 ```
 
 ## Local development
@@ -36,4 +32,4 @@ export GOOGLE_APPLICATION_CREDENTIALS="/home/user/Downloads/service-account-file
 
 [x] Add analytics
 
-[ ] Add UI lib
+[x] Add UI lib

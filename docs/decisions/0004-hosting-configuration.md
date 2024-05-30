@@ -14,7 +14,7 @@ We need to set up hosting, so people can access the site.
 
 Utilize the following combination in other to have flexibility configuration:
 
-- Namecheap for domain 
+- Namecheap for domain
 - Cloudflare for DNS and other features
 - Analog is deployed to cloud run
 - Firebase hosting in front of cloud run service
