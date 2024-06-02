@@ -5,7 +5,8 @@
   "scripts": {
     "build": "npx nx build pdf",
     "deploy": "npx nx affected -t deploy --base=main~1 --head=main",
-    "prepare": "husky"
+    "prepare": "husky",
+    "deploy:rules": "firebase deploy --only storage,firestore"
   },
   "author": "Dale Nguyen <dale@dalenguyen.me>",
   "keywords": [

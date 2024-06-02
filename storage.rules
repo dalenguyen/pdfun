@@ -1,7 +1,29 @@
 service firebase.storage {
   match /b/{bucket}/o {
-    match /{allPaths=**} {
-      allow read, write: if request.auth!=null;
+
+    // PUBLIC RULES
+    match /public/{imageId} {
+      // only allow public file to be uploaded
+      // with this pattern `pdfun-1245515151515.pdf`
+      allow write: if imageId.matches("pdfun-.*\\.pdf")
+
+      // only allow public resized files to be read
+      // with this pattern `resized-pdfun-1245515151515.pdf`
+      allow read: if imageId.matches("resized-pdfun-.*\\.pdf")
+    }
+
+    // PRIVATE RULES
+    match /users/{userId} {
+      allow read, write: if isOwner(userId) || isAdmin();
+    }
+
+    // HELPERS FUNCTIONS
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return request.auth.token.admin == true;
     }
   }
 }
