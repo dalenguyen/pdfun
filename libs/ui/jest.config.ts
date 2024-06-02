@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'auth',
-  preset: '../../../jest.preset.js',
+  displayName: 'ui',
+  preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../../coverage/libs/ui',
+  coverageDirectory: '../../coverage/libs/ui',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

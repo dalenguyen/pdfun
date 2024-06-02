@@ -5,6 +5,7 @@
   "scripts": {
     "build": "npx nx build pdf",
     "deploy": "npx nx affected -t deploy --base=main~1 --head=main",
+    "dep-graph": "npx nx dep-graph",
     "prepare": "husky",
     "deploy:rules": "firebase deploy --only storage,firestore"
   },
