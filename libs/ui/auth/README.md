@@ -1,7 +1,3 @@
-# auth
+# @pdfun/ui/auth
 
-This library was generated with [Nx](https://nx.dev).
-
-## Running unit tests
-
-Run `nx test auth` to execute the unit tests.
+Secondary entry point of `@pdfun/ui`. It can be used by importing from `@pdfun/ui/auth`.

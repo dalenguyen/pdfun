@@ -10,13 +10,13 @@ import { ButtonModule } from 'primeng/button'
   template: `
     <section class="m-auto text-center">
       <p-button
-        label="Google Login"
+        size="small"
+        label="Login"
         icon="pi pi-google"
         (onClick)="tryLogin()"
       />
     </section>
   `,
-  styles: ``,
 })
 export class LoginComponent {
   login = inject(GOOGLE_LOGIN)

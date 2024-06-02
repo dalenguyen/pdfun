@@ -1,2 +1,3 @@
-export * from './lib/login/login.component'
-export * from './lib/signup/signup.component'
+export * from './login/login.component'
+export * from './profile/profile.component'
+export * from './signup/signup.component'
