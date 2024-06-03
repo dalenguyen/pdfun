@@ -1,5 +1,5 @@
 import { Injectable, inject, signal } from '@angular/core'
-import { authState, idToken } from '@angular/fire/auth'
+import { User, authState, idToken } from '@angular/fire/auth'
 import { FIREBASE_AUTH } from '@pdfun/angular/firebase'
 import { CookieService } from 'ngx-cookie-service'
 
@@ -12,6 +12,7 @@ export class AuthService {
   idToken$ = idToken(this.auth)
 
   isLoggedIn = signal(false)
+  userProfile = signal<User | null>(null)
 
   // https://firebase.google.com/docs/hosting/manage-cache
   private readonly SESSION_COOKIE_KEY = '__session'
@@ -27,6 +28,7 @@ export class AuthService {
   constructor() {
     authState(this.auth).subscribe((user) => {
       if (user) {
+        this.userProfile.set(user.toJSON() as User)
         this.isLoggedIn.set(true)
       } else {
         this.isLoggedIn.set(false)

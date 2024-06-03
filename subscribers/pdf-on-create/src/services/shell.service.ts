@@ -1,3 +1,5 @@
+import { FilePath, UploadedFile } from '@pdfun/domain'
+import type { ShellString } from 'shelljs'
 import shell from 'shelljs'
 
 /**
@@ -7,10 +9,15 @@ import shell from 'shelljs'
  * @param fileName string
  * @returns
  */
-export const resizeFile = (fileName: string, options = {}) => {
+export const resizeFile = (
+  uploadedFileData: UploadedFile,
+  options = {}
+): ShellString => {
+  const { fileName } = uploadedFileData
+
   shell.echo(`Start to resize file: ${fileName}`)
 
-  shell.cd('/tmp')
+  shell.cd(FilePath.tmp)
 
   const result = shell.exec(`
     gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
