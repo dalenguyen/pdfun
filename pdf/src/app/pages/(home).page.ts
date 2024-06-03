@@ -1,6 +1,7 @@
 import { RouteMeta } from '@analogjs/router'
 import { CommonModule } from '@angular/common'
 import { Component, inject, signal } from '@angular/core'
+import { User } from '@angular/fire/auth'
 import { Firestore, doc, docData, setDoc } from '@angular/fire/firestore'
 import {
   Storage,
@@ -8,12 +9,15 @@ import {
   ref,
   uploadBytesResumable,
 } from '@angular/fire/storage'
+import { AuthService } from '@pdfun/angular/services'
+import { Collections, UploadedFile } from '@pdfun/domain'
 import { nanoid } from 'nanoid'
-import { MessageService } from 'primeng/api'
+import { Message, MessageService } from 'primeng/api'
 import { ButtonModule } from 'primeng/button'
 import { FileUploadHandlerEvent, FileUploadModule } from 'primeng/fileupload'
+import { MessagesModule } from 'primeng/messages'
 import { ToastModule } from 'primeng/toast'
-import { EMPTY, filter, switchMap } from 'rxjs'
+import { EMPTY, Observable, filter, of, switchMap } from 'rxjs'
 import { bytesToMegaBytes, getNextDays } from '../shared/utils'
 
 export const routeMeta: RouteMeta = {
@@ -23,7 +27,13 @@ export const routeMeta: RouteMeta = {
 @Component({
   selector: 'pdf-home',
   standalone: true,
-  imports: [CommonModule, ButtonModule, FileUploadModule, ToastModule],
+  imports: [
+    CommonModule,
+    ButtonModule,
+    FileUploadModule,
+    ToastModule,
+    MessagesModule,
+  ],
   providers: [MessageService],
   template: `
     <p-toast />
@@ -52,34 +62,63 @@ export const routeMeta: RouteMeta = {
     }
 
     <br />
+
+    @if(authService.isLoggedIn() === false) {
+    <p-messages
+      [(value)]="messages"
+      [enableService]="false"
+      [closable]="false"
+    />
     <em class="my-4 block"
       >* Disclaimer: File uploaded is public accessible for people with some
       skills and will be deleted after one day. Please
       <strong>DO NOT</strong> upload sensitive documents. Stay updated for more
       features.</em
     >
+    } @else {
+    <em class="my-4 block"
+      >* Note: Thanks for logging in. Your files are secured and will be deleted
+      in 1 day!</em
+    >
+    }
   `,
 })
 export default class HomeComponent {
   private messageService = inject(MessageService)
+  authService = inject(AuthService)
+
+  messages: Message[] = [
+    {
+      severity: 'info',
+      detail: 'Please Log In if you want to secure your uploaded files!',
+    },
+  ]
 
   // TODO: move storage & firestore to separate services
   private readonly storage: Storage = inject(Storage)
   private readonly firestore: Firestore = inject(Firestore)
   private currentID = nanoid()
 
-  docRef = doc(this.firestore, `public/${this.currentID}`)
-  pdf$ = docData(this.docRef)
+  docRef = doc(this.firestore, `${this.generateFilePath()}/${this.currentID}`)
+  pdf$ = docData(this.docRef) as Observable<UploadedFile>
 
   loading = signal(false)
   errorMessage = signal('')
 
   downloadUrl$ = this.pdf$.pipe(
-    filter((doc) => !!doc?.['resizedFullPath']),
+    filter((doc) => !!doc?.resizedFileName),
     switchMap((doc) => {
       // TODO: add error handling where `resizedFullPath` will have `error` as the value where the resize process failed
       this.loading.set(false)
-      return this.getPdfDownloadLink(doc?.['resizedFullPath'])
+
+      if (doc.resizedFileName === 'error') {
+        this.errorMessage.set(
+          `Error in resizing PDF file. Please try it again.`
+        )
+        return of(null)
+      }
+
+      return this.getPdfDownloadLink(`${doc.filePath}/${doc.resizedFileName}`)
     })
   )
 
@@ -93,24 +132,32 @@ export default class HomeComponent {
       // to prevent empty space to cause issue when resizing
       const fileName = `pdfun-${String(Date.now())}.pdf`
 
-      const storageRef = ref(this.storage, `public/${fileName}`)
+      const storageRef = ref(
+        this.storage,
+        `${this.generateFilePath()}/${fileName}`
+      )
       const result = await uploadBytesResumable(storageRef, file)
 
       if (result.state === 'success') {
         // TODO: override the next data if user doesn't refresh the page
-        const dbRef = doc(this.firestore, `public/${this.currentID}`)
+        const docRef = doc(
+          this.firestore,
+          `${this.generateFilePath()}/${this.currentID}`
+        )
 
-        await setDoc(dbRef, {
+        const uploadFileData: UploadedFile = {
           fileName,
           contentType: result.metadata.contentType,
-          fullPath: result.metadata.fullPath,
-          // ref: result.ref,
+          filePath: this.generateFilePath(),
           size: result.metadata.size,
           createdAt: new Date().toISOString(),
           updatedAt: result.metadata.updated,
           // Document will be deleted in 1 day
           expiresOn: getNextDays(),
-        })
+        }
+
+        await setDoc(docRef, uploadFileData)
+
         this.messageService.add({
           severity: 'info',
           summary: 'File Uploaded',
@@ -153,12 +200,18 @@ export default class HomeComponent {
         // to prevent empty space to cause issue when resizing
         const fileName = `pdfun-${String(Date.now())}.pdf`
 
-        const storageRef = ref(this.storage, `public/${fileName}`)
+        const storageRef = ref(
+          this.storage,
+          `${this.generateFilePath()}/${fileName}`
+        )
         const result = await uploadBytesResumable(storageRef, file)
 
         if (result.state === 'success') {
           // TODO: override the next data if user doesn't refresh the page
-          const dbRef = doc(this.firestore, `public/${this.currentID}`)
+          const dbRef = doc(
+            this.firestore,
+            `${this.generateFilePath()}/${this.currentID}`
+          )
 
           await setDoc(dbRef, {
             fileName,
@@ -190,5 +243,18 @@ export default class HomeComponent {
       this.errorMessage.set((error as Error).message)
       return EMPTY
     }
+  }
+
+  // file path also apply to firestore & storage
+  private generateFilePath(): string {
+    if (
+      this.authService.isLoggedIn() &&
+      this.authService.userProfile() !== null
+    ) {
+      const { uid } = this.authService.userProfile() as User
+      return `${Collections.users}/${uid}/${Collections.pdfs}`
+    }
+
+    return Collections.public
   }
 }

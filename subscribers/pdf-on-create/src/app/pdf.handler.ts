@@ -17,30 +17,29 @@ export const handler = async (req: Request, res: Response) => {
     return
   }
 
+  // /public/{publicId}
+  // /users/{userId}/pdfs/{pdfId}
   console.log(`Start to get document ${documentPath}`)
 
-  const { fullPath, fileName } = await getDocument(documentPath)
+  const uploadedFileData = await getDocument(documentPath)
 
-  await downloadFile(fullPath, fileName)
+  await downloadFile(uploadedFileData)
 
-  const resized = resizeFile(fileName)
+  const resized = resizeFile(uploadedFileData)
 
   let resizedFileName = 'error'
-  let resizedFullPath = 'error'
 
   if (resized.code === 0) {
-    resizedFileName = `resized-${fileName}`
-    resizedFullPath = `public/${resizedFileName}`
+    resizedFileName = `resized-${uploadedFileData.fileName}`
 
     // only upload and save data when resize is success
-    await uploadFile(resizedFileName)
+    await uploadFile(uploadedFileData.filePath, resizedFileName)
   } else {
     console.log(`Failed to resized file`)
   }
 
   await updateDocument(documentPath, {
     resizedFileName,
-    resizedFullPath,
   })
 
   return res.json({ success: 'true' })
