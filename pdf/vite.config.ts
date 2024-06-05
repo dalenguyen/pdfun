@@ -22,16 +22,14 @@ export default defineConfig(({ mode }) => {
         allow: ['.', '../libs', '..'],
       },
     },
-    vite: {
-      ssr: {
-        noExternal: [
-          'shelljs',
-          'firebase/**',
-          'firebase-admin/**',
-          'ngx-cookie-service/**',
-          'ngx-cookie-service-ssr/**',
-        ],
-      },
+    ssr: {
+      noExternal: [
+        'shelljs',
+        'firebase/**',
+        'firebase-admin/**',
+        'ngx-cookie-service/**',
+        'ngx-cookie-service-ssr/**',
+      ],
     },
     plugins: [
       analog({
