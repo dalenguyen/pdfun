@@ -11,6 +11,7 @@ import {
 } from '@angular/fire/storage'
 import { AuthService } from '@pdfun/angular/services'
 import { Collections, UploadedFile } from '@pdfun/domain'
+import { BuyMeACoffeeComponent } from '@pdfun/ui/common'
 import { nanoid } from 'nanoid'
 import { Message, MessageService } from 'primeng/api'
 import { ButtonModule } from 'primeng/button'
@@ -33,6 +34,7 @@ export const routeMeta: RouteMeta = {
     FileUploadModule,
     ToastModule,
     MessagesModule,
+    BuyMeACoffeeComponent,
   ],
   providers: [MessageService],
   template: `
@@ -47,6 +49,7 @@ export const routeMeta: RouteMeta = {
       name="myfile"
       maxFileSize="10000000"
       fileLimit="1"
+      uploadLabel="Upload & Resize"
       (uploadHandler)="onUpload($event)"
       [customUpload]="true"
     />
@@ -59,6 +62,7 @@ export const routeMeta: RouteMeta = {
     <a class="block my-4 underline" [href]="downloadUrl" target="_blank"
       >Download PDF</a
     >
+    <lib-buy-me-a-coffee />
     }
 
     <br />
