@@ -1,6 +1,6 @@
 import { RouteMeta } from '@analogjs/router'
 import { CommonModule } from '@angular/common'
-import { Component, inject, signal } from '@angular/core'
+import { Component, computed, effect, inject, signal } from '@angular/core'
 import { User } from '@angular/fire/auth'
 import { Firestore, doc, docData, setDoc } from '@angular/fire/firestore'
 import {
@@ -19,7 +19,7 @@ import { FileUploadHandlerEvent, FileUploadModule } from 'primeng/fileupload'
 import { MessagesModule } from 'primeng/messages'
 import { ToastModule } from 'primeng/toast'
 import { EMPTY, Observable, filter, of, switchMap } from 'rxjs'
-import { bytesToMegaBytes, getNextDays } from '../shared/utils'
+import { getNextDays } from '../shared/utils'
 
 export const routeMeta: RouteMeta = {
   title: 'PDFun - Resize',
@@ -101,30 +101,43 @@ export default class HomeComponent {
   // TODO: move storage & firestore to separate services
   private readonly storage: Storage = inject(Storage)
   private readonly firestore: Firestore = inject(Firestore)
-  private currentID = nanoid()
+  private currentID = signal(nanoid())
 
-  docRef = doc(this.firestore, `${this.generateFilePath()}/${this.currentID}`)
-  pdf$ = docData(this.docRef) as Observable<UploadedFile>
+  docRef = computed(() => {
+    return doc(this.firestore, `${this.generateFilePath()}/${this.currentID()}`)
+  })
+
+  pdf = computed(() => {
+    return docData(this.docRef()) as Observable<UploadedFile>
+  })
 
   loading = signal(false)
   errorMessage = signal('')
 
-  downloadUrl$ = this.pdf$.pipe(
-    filter((doc) => !!doc?.resizedFileName),
-    switchMap((doc) => {
-      // TODO: add error handling where `resizedFullPath` will have `error` as the value where the resize process failed
-      this.loading.set(false)
+  downloadUrl$: Observable<string | Observable<never> | null> = of(null)
 
-      if (doc.resizedFileName === 'error') {
-        this.errorMessage.set(
-          `Error in resizing PDF file. Please try it again.`
-        )
-        return of(null)
-      }
+  // Make sure that the downloadURL will be trigger correctly locally
+  constructor() {
+    effect(() => {
+      this.downloadUrl$ = this.pdf().pipe(
+        filter((doc) => !!doc?.resizedFileName),
+        switchMap((doc) => {
+          this.loading.set(false)
 
-      return this.getPdfDownloadLink(`${doc.filePath}/${doc.resizedFileName}`)
+          if (doc.resizedFileName === 'error') {
+            this.errorMessage.set(
+              `Error in resizing PDF file. Please try it again.`
+            )
+            return of(null)
+          }
+
+          return this.getPdfDownloadLink(
+            `${doc.filePath}/${doc.resizedFileName}`
+          )
+        })
+      )
     })
-  )
+  }
 
   async onUpload(event: FileUploadHandlerEvent) {
     const file = event.files[0]
@@ -143,12 +156,6 @@ export default class HomeComponent {
       const result = await uploadBytesResumable(storageRef, file)
 
       if (result.state === 'success') {
-        // TODO: override the next data if user doesn't refresh the page
-        const docRef = doc(
-          this.firestore,
-          `${this.generateFilePath()}/${this.currentID}`
-        )
-
         const uploadFileData: UploadedFile = {
           fileName,
           contentType: result.metadata.contentType,
@@ -156,11 +163,13 @@ export default class HomeComponent {
           size: result.metadata.size,
           createdAt: new Date().toISOString(),
           updatedAt: result.metadata.updated,
+          // reset resize file name
+          resizedFileName: null,
           // Document will be deleted in 1 day
           expiresOn: getNextDays(),
         }
 
-        await setDoc(docRef, uploadFileData)
+        await setDoc(this.docRef(), uploadFileData)
 
         this.messageService.add({
           severity: 'info',
@@ -170,70 +179,6 @@ export default class HomeComponent {
       } else {
         this.loading.set(false)
         this.errorMessage.set('Failed to upload file. Please try again later.')
-      }
-    }
-  }
-
-  async uploadFile(input: HTMLInputElement) {
-    if (!input.files) return
-
-    const files: FileList = input.files
-
-    // TODO: only limit 1 file for public release
-    if (files.length !== 1) return
-
-    this.loading.set(true)
-    this.errorMessage.set('')
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files.item(i)
-      if (file) {
-        const fileSize = bytesToMegaBytes(file.size)
-
-        console.log({ fileSize })
-
-        if (fileSize > 10) {
-          this.loading.set(false)
-          this.errorMessage.set(
-            'File size is greater than 10MB. Please try another one!'
-          )
-          return
-        }
-
-        // having default naming convention pdf-124551515.pdf
-        // to prevent empty space to cause issue when resizing
-        const fileName = `pdfun-${String(Date.now())}.pdf`
-
-        const storageRef = ref(
-          this.storage,
-          `${this.generateFilePath()}/${fileName}`
-        )
-        const result = await uploadBytesResumable(storageRef, file)
-
-        if (result.state === 'success') {
-          // TODO: override the next data if user doesn't refresh the page
-          const dbRef = doc(
-            this.firestore,
-            `${this.generateFilePath()}/${this.currentID}`
-          )
-
-          await setDoc(dbRef, {
-            fileName,
-            contentType: result.metadata.contentType,
-            fullPath: result.metadata.fullPath,
-            // ref: result.ref,
-            size: result.metadata.size,
-            createdAt: new Date().toISOString(),
-            updatedAt: result.metadata.updated,
-            // Document will be deleted in 1 day
-            expiresOn: getNextDays(),
-          })
-        } else {
-          this.loading.set(false)
-          this.errorMessage.set(
-            'Failed to upload file. Please try again later.'
-          )
-        }
       }
     }
   }

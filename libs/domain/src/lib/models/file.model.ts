@@ -5,7 +5,7 @@ export interface UploadedFile {
   expiresOn: Date
   fileName: string
   filePath: string
-  resizedFileName?: string
+  resizedFileName?: string | null
   size: number
 }
 

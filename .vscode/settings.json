@@ -1,19 +1,19 @@
 {
-    "editor.formatOnSave": true,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
-        "source.organizeImports": "explicit"
+      "source.fixAll.eslint": "explicit"
     },
-    "[typescript]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features",
-        "editor.codeActionsOnSave": {
-            "source.fixAll.eslint": "explicit"
-        },
-        "editor.formatOnSave": true
-    },
-    "angular-schematics.schematicsDefaultOptions": {
-        "angular-*": {
-            "skipStyle": true
-        }
-    },
-    "svg.preview.background": "white",
+    "editor.formatOnSave": true
+  },
+  "angular-schematics.schematicsDefaultOptions": {
+    "angular-*": {
+      "skipStyle": true
+    }
+  },
+  "svg.preview.background": "white"
 }
