@@ -1,42 +1,51 @@
 import { Storage } from '@google-cloud/storage'
 import { FilePath, UploadedFile } from '@pdfun/domain'
+import { createNewFolder } from './shell.service'
 
 const storage = new Storage()
 
 // The ID of your GCS bucket
 const bucketName = 'pdfun-prod.appspot.com'
 
-export const downloadFile = async (uploadedFileData: UploadedFile) => {
-  const { fileName, filePath } = uploadedFileData
+export const downloadFile = async (uploadedFile: UploadedFile) => {
+  // prepare new folder for downloaded file
+  createNewFolder(`${FilePath.tmp}/${uploadedFile.pdfId}`)
+
+  const { fileName, filePath } = uploadedFile
 
   const fullPath = `${filePath}/${fileName}`
 
+  const downloadedDestination = `${FilePath.tmp}/${uploadedFile.pdfId}/${fileName}`
+
   const options = {
-    destination: `${FilePath.tmp}/${fileName}`,
+    destination: downloadedDestination,
   }
 
   try {
     // Downloads the file
     await storage.bucket(bucketName).file(fullPath).download(options)
 
-    console.log(
-      `gs://${bucketName}/${fullPath} downloaded to ${`${FilePath.tmp}/${fileName}`}.`
-    )
+    console.log(`${fullPath} downloaded to ${downloadedDestination}`)
 
-    return `${FilePath.tmp}/${fileName}`
+    return downloadedDestination
   } catch (error) {
     throw new Error(error)
   }
 }
 
-export const uploadFile = async (filePath: string, fileName: string) => {
+export const uploadFile = async (
+  uploadedFile: UploadedFile,
+  fileName: string
+) => {
   const options = {
-    destination: `${filePath}/${fileName}`,
+    destination: `${uploadedFile.filePath}/${fileName}`,
   }
 
   await storage
     .bucket(bucketName)
-    .upload(`${FilePath.tmp}/${fileName}`, options)
+    .upload(`${FilePath.tmp}/${uploadedFile.pdfId}/${fileName}`, options)
 
-  console.log(`${FilePath.tmp}/${fileName} uploaded to ${bucketName}`)
+  console.log(
+    `${FilePath.tmp}/${uploadedFile.pdfId}/${fileName} uploaded to ${uploadedFile.filePath}`
+  )
 }

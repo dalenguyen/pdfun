@@ -1,6 +1,7 @@
 import { FilePath, UploadedFile } from '@pdfun/domain'
 import type { ShellString } from 'shelljs'
 import shell from 'shelljs'
+import { ResizeOption } from '../models'
 
 /**
  * Start to resize file using default setting from ghostscript
@@ -11,17 +12,23 @@ import shell from 'shelljs'
  */
 export const resizeFile = (
   uploadedFileData: UploadedFile,
-  options = {}
+  options: ResizeOption = {}
 ): ShellString => {
   const { fileName } = uploadedFileData
 
+  const {
+    settings = 'ebook',
+    device = 'pdfwrite',
+    compatibilityLevel = '1.4',
+  } = options
+
   shell.echo(`Start to resize file: ${fileName}`)
 
-  shell.cd(FilePath.tmp)
+  shell.cd(`${FilePath.tmp}/${uploadedFileData.pdfId}`)
 
   const result = shell.exec(`
-    gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
-    -dNOPAUSE -dQUIET -dBATCH -sOutputFile=resized-${fileName} ${fileName}
+    gs -sDEVICE=${device} -dCompatibilityLevel=${compatibilityLevel} -dPDFSETTINGS=/${settings} \
+    -dNOPAUSE -dQUIET -dBATCH -sOutputFile=${uploadedFileData.taskType}-${fileName} ${fileName}
   `)
 
   if (result.code !== 0) {
@@ -30,4 +37,13 @@ export const resizeFile = (
   }
 
   return result
+}
+
+export const createNewFolder = (path: string) => {
+  cleanupFolder(path)
+  shell.mkdir(path)
+}
+
+export const cleanupFolder = (path: string) => {
+  shell.rm(`${path}/*.*`)
 }

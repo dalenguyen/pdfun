@@ -1,11 +1,6 @@
 import type { Request, Response } from 'express'
-import {
-  downloadFile,
-  getDocument,
-  resizeFile,
-  updateDocument,
-  uploadFile,
-} from '../services'
+import { getDocument } from '../services'
+import { handlePDFResize } from './pdf-resize.handler'
 
 export const handler = async (req: Request, res: Response) => {
   const documentPath = req.headers['ce-document'] as string
@@ -23,24 +18,15 @@ export const handler = async (req: Request, res: Response) => {
 
   const uploadedFileData = await getDocument(documentPath)
 
-  await downloadFile(uploadedFileData)
+  switch (uploadedFileData.taskType) {
+    case 'RESIZE':
+      await handlePDFResize(uploadedFileData, documentPath)
+      break
 
-  const resized = resizeFile(uploadedFileData)
-
-  let resizedFileName = 'error'
-
-  if (resized.code === 0) {
-    resizedFileName = `resized-${uploadedFileData.fileName}`
-
-    // only upload and save data when resize is success
-    await uploadFile(uploadedFileData.filePath, resizedFileName)
-  } else {
-    console.log(`Failed to resized file`)
+    default:
+      console.log(`${uploadedFileData.taskType} has no handler!`)
+      break
   }
-
-  await updateDocument(documentPath, {
-    resizedFileName,
-  })
 
   return res.json({ success: 'true' })
 }

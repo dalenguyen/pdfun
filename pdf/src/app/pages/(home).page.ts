@@ -10,7 +10,7 @@ import {
   uploadBytesResumable,
 } from '@angular/fire/storage'
 import { AuthService } from '@pdfun/angular/services'
-import { Collections, UploadedFile } from '@pdfun/domain'
+import { Collections, TaskType, UploadedFile } from '@pdfun/domain'
 import { BuyMeACoffeeComponent } from '@pdfun/ui/common'
 import { nanoid } from 'nanoid'
 import { Message, MessageService } from 'primeng/api'
@@ -120,11 +120,11 @@ export default class HomeComponent {
   constructor() {
     effect(() => {
       this.downloadUrl$ = this.pdf().pipe(
-        filter((doc) => !!doc?.resizedFileName),
+        filter((doc) => Object.keys(doc?.taskResponse ?? {}).length > 0),
         switchMap((doc) => {
           this.loading.set(false)
 
-          if (doc.resizedFileName === 'error') {
+          if (doc.taskResponse?.success === false) {
             this.errorMessage.set(
               `Error in resizing PDF file. Please try it again.`
             )
@@ -132,7 +132,7 @@ export default class HomeComponent {
           }
 
           return this.getPdfDownloadLink(
-            `${doc.filePath}/${doc.resizedFileName}`
+            `${doc.filePath}/${doc.taskResponse?.fileName}`
           )
         })
       )
@@ -163,8 +163,10 @@ export default class HomeComponent {
           size: result.metadata.size,
           createdAt: new Date().toISOString(),
           updatedAt: result.metadata.updated,
+          pdfId: this.currentID(),
+          taskType: TaskType.RESIZE,
           // reset resize file name
-          resizedFileName: null,
+          taskResponse: null,
           // Document will be deleted in 1 day
           expiresOn: getNextDays(),
         }
