@@ -8,8 +8,8 @@ service firebase.storage {
       allow write: if imageId.matches("pdfun-.*\\.pdf")
 
       // only allow public resized files to be read
-      // with this pattern `resized-pdfun-1245515151515.pdf`
-      allow read: if imageId.matches("resized-pdfun-.*\\.pdf")
+      // with this pattern `RESIZE-pdfun-1245515151515.pdf`
+      allow read: if imageId.matches("RESIZE-pdfun-.*\\.pdf")
     }
 
     // PRIVATE RULES
