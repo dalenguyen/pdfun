@@ -1,7 +1,7 @@
 import { Firestore } from '@google-cloud/firestore'
 import { UploadedFile } from '@pdfun/domain'
 
-const db = new Firestore()
+const db = new Firestore({ ignoreUndefinedProperties: true })
 
 export const getDocument = async (
   path: string
