@@ -149,7 +149,9 @@ export default class HomeComponent {
             return of(null)
           }
 
-          this.newFileSize.set(doc.newFileSize)
+          if (doc.newFileSize) {
+            this.newFileSize.set(doc.newFileSize)
+          }
 
           return this.getPdfDownloadLink(
             `${doc.filePath}/${doc.taskResponse?.fileName}`

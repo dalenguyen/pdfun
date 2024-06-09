@@ -20,7 +20,7 @@ export interface UploadedFile {
   uid: string
   taskType: TaskType
   size: number
-  newFileSize: number
+  newFileSize?: number
 }
 
 export enum FilePath {
