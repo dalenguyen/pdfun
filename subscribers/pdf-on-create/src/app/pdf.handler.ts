@@ -19,6 +19,12 @@ export const handler = async (req: Request, res: Response) => {
 
   const uploadedFileData = await getDocument(documentPath)
 
+  // Prevent duplication events
+  if (uploadedFileData.taskResponse?.fileName) {
+    console.log(`Document is already processed!`)
+    return res.json({ success: 'true' })
+  }
+
   switch (uploadedFileData.taskType) {
     case 'RESIZE':
       await handlePDFResize(uploadedFileData, documentPath)
@@ -29,6 +35,8 @@ export const handler = async (req: Request, res: Response) => {
       console.log(`${uploadedFileData.taskType} has no handler!`)
       break
   }
+
+  console.log(`Finishing processing PDF file!`)
 
   return res.json({ success: 'true' })
 }
