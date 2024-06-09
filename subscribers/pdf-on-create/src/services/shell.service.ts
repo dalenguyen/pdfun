@@ -46,7 +46,7 @@ export const createNewFolder = (path: string) => {
 }
 
 export const cleanupFolder = (path: string) => {
-  shell.rm(`${path}/*.*`)
+  shell.rm('-rf', path)
 }
 
 export const getFileSize = async (path: string) => {

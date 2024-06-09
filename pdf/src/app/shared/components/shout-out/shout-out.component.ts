@@ -31,7 +31,7 @@ export class ShoutOutComponent {
     return [
       {
         severity: 'success',
-        detail: `${count} people who resized their PDF files!`,
+        detail: `${count} PDF files were resized using PDFun!`,
       },
     ]
   })

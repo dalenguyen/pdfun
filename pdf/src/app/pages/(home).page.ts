@@ -119,6 +119,8 @@ export default class HomeComponent {
   // TODO: move storage & firestore to separate services
   private readonly storage: Storage = inject(Storage)
   private readonly firestore: Firestore = inject(Firestore)
+
+  // set the initial value, but the it will be reset before file uploading
   private currentID = signal(nanoid())
 
   docRef = computed(() => {
@@ -162,6 +164,9 @@ export default class HomeComponent {
   }
 
   async onUpload(event: FileUploadHandlerEvent) {
+    // set a new document Id if users want to retry without reloading the page
+    this.currentID.set(nanoid())
+
     const file = event.files[0]
 
     if (file) {
