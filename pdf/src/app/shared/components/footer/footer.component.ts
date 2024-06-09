@@ -12,8 +12,8 @@ import { Component } from '@angular/core'
         href="https://github.com/dalenguyen/pdfun"
         class="underline"
         target="_blank"
-        >Github</a
-      >
+        ><i class="pi pi-github" style="font-size: 1.5rem"></i
+      ></a>
     </footer>
   `,
 })
