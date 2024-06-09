@@ -17,8 +17,10 @@ export interface UploadedFile {
   filePath: string
   taskResponse: TaskResponse | null
   pdfId: string
+  uid: string
   taskType: TaskType
   size: number
+  newFileSize: number
 }
 
 export enum FilePath {

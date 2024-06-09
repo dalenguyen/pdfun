@@ -1,5 +1,6 @@
 import type { Request, Response } from 'express'
 import { getDocument } from '../services'
+import { addAnalytics } from './analytics.handler'
 import { handlePDFResize } from './pdf-resize.handler'
 
 export const handler = async (req: Request, res: Response) => {
@@ -21,6 +22,7 @@ export const handler = async (req: Request, res: Response) => {
   switch (uploadedFileData.taskType) {
     case 'RESIZE':
       await handlePDFResize(uploadedFileData, documentPath)
+      await addAnalytics(uploadedFileData)
       break
 
     default:

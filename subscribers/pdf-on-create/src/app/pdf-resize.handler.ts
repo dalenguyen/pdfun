@@ -1,6 +1,7 @@
-import { TaskResponse, UploadedFile } from '@pdfun/domain'
+import { FilePath, TaskResponse, UploadedFile } from '@pdfun/domain'
 import {
   downloadFile,
+  getFileSize,
   resizeFile,
   updateDocument,
   uploadFile,
@@ -29,8 +30,13 @@ export const handlePDFResize = async (
     console.error(`Failed to resized file`)
   }
 
+  const newFileSize = await getFileSize(
+    `${FilePath.tmp}/${uploadedFileData.pdfId}/${uploadedFileData.taskType}-${uploadedFileData.fileName}`
+  )
+
   await updateDocument(documentPath, {
     taskResponse,
+    newFileSize,
   })
 
   // TODO: clean up tmp folder

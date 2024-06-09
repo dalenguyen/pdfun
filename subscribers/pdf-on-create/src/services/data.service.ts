@@ -18,3 +18,7 @@ export const getDocument = async (
 export const updateDocument = async (path: string, data: object) => {
   return db.doc(path).update(data)
 }
+
+export const addDocument = async <T>(path: string, data: T) => {
+  return db.collection(path).add(data)
+}

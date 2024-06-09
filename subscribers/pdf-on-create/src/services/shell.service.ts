@@ -1,4 +1,5 @@
 import { FilePath, UploadedFile } from '@pdfun/domain'
+import fs from 'fs'
 import type { ShellString } from 'shelljs'
 import shell from 'shelljs'
 import { ResizeOption } from '../models'
@@ -46,4 +47,14 @@ export const createNewFolder = (path: string) => {
 
 export const cleanupFolder = (path: string) => {
   shell.rm(`${path}/*.*`)
+}
+
+export const getFileSize = async (path: string) => {
+  try {
+    const stats = fs.statSync(path)
+    return stats.size
+  } catch (err) {
+    console.error(err)
+    return 0
+  }
 }

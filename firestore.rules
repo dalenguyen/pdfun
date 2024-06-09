@@ -8,6 +8,13 @@ service cloud.firestore {
       allow read, write: if true;
     }
 
+    // anlytics - only allow users to read
+    // TODO: move to API to utilize cache
+    match /analytics/{analyticId} {
+      allow read: if true;
+      allow write: if false;
+     }
+
     // securities for authenticated users
     match /users/{userId} {
       allow read, write: if isOwner(userId) || isAdmin();
