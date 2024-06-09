@@ -5,11 +5,11 @@ service firebase.storage {
     match /public/{imageId} {
       // only allow public file to be uploaded
       // with this pattern `pdfun-1245515151515.pdf`
-      allow write: if imageId.matches("pdfun-.*\\.pdf")
+      allow write: if imageId.matches("pdfun-.*\\.pdf");
 
       // only allow public resized files to be read
       // with this pattern `RESIZE-pdfun-1245515151515.pdf`
-      allow read: if imageId.matches("RESIZE-pdfun-.*\\.pdf")
+      allow read: if imageId.matches("RESIZE-pdfun-.*\\.pdf");
     }
 
     // PRIVATE RULES
@@ -17,8 +17,8 @@ service firebase.storage {
       allow read, write: if isOwner(userId) || isAdmin();
 
       match /pdfs/{pdfId} {
-      allow read, write: if isOwner(userId) || isAdmin();
-    }
+        allow read, write: if isOwner(userId) || isAdmin();
+      }
     }
 
     // HELPERS FUNCTIONS

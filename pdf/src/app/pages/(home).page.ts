@@ -19,6 +19,7 @@ import { FileUploadHandlerEvent, FileUploadModule } from 'primeng/fileupload'
 import { MessagesModule } from 'primeng/messages'
 import { ToastModule } from 'primeng/toast'
 import { EMPTY, Observable, filter, of, switchMap } from 'rxjs'
+import { ShoutOutComponent } from '../shared/components/shout-out/shout-out.component'
 import { getNextDays } from '../shared/utils'
 
 export const routeMeta: RouteMeta = {
@@ -28,19 +29,13 @@ export const routeMeta: RouteMeta = {
 @Component({
   selector: 'pdf-home',
   standalone: true,
-  imports: [
-    CommonModule,
-    ButtonModule,
-    FileUploadModule,
-    ToastModule,
-    MessagesModule,
-    BuyMeACoffeeComponent,
-  ],
   providers: [MessageService],
   template: `
     <p-toast />
 
     <h1 class="text-xl py-4">Upload your PDF file for resizing purpose</h1>
+
+    <pdf-shout-out [type]="TaskType.RESIZE" />
 
     <p-fileUpload
       mode="advanced"
@@ -59,6 +54,15 @@ export const routeMeta: RouteMeta = {
     } @if(errorMessage()) {
     <p class="text-red-500">{{ errorMessage() }}</p>
     } @if(downloadUrl$ | async; as downloadUrl) {
+
+    <!-- Compare file size -->
+    @if(this.newFileSize() > this.currentFileSize()) {
+    <p>
+      Congratulations! Your file is reduced by
+      {{ this.newFileSize() - this.currentFileSize() }} bytes!
+    </p>
+    }
+
     <a class="block my-4 underline" [href]="downloadUrl" target="_blank"
       >Download PDF</a
     >
@@ -86,10 +90,24 @@ export const routeMeta: RouteMeta = {
     >
     }
   `,
+  imports: [
+    CommonModule,
+    ButtonModule,
+    FileUploadModule,
+    ToastModule,
+    MessagesModule,
+    BuyMeACoffeeComponent,
+    ShoutOutComponent,
+  ],
 })
 export default class HomeComponent {
   private messageService = inject(MessageService)
   authService = inject(AuthService)
+
+  TaskType = TaskType
+
+  currentFileSize = signal(0)
+  newFileSize = signal(0)
 
   messages: Message[] = [
     {
@@ -131,6 +149,8 @@ export default class HomeComponent {
             return of(null)
           }
 
+          this.newFileSize.set(doc.newFileSize)
+
           return this.getPdfDownloadLink(
             `${doc.filePath}/${doc.taskResponse?.fileName}`
           )
@@ -154,6 +174,10 @@ export default class HomeComponent {
         `${this.generateFilePath()}/${fileName}`
       )
       const result = await uploadBytesResumable(storageRef, file)
+      const { uid = 'anonymous' } =
+        (this.authService.userProfile() as User) ?? {}
+
+      this.currentFileSize.set(result.metadata.size)
 
       if (result.state === 'success') {
         const uploadFileData: UploadedFile = {
@@ -164,6 +188,7 @@ export default class HomeComponent {
           createdAt: new Date().toISOString(),
           updatedAt: result.metadata.updated,
           pdfId: this.currentID(),
+          uid,
           taskType: TaskType.RESIZE,
           // reset resize file name
           taskResponse: null,
