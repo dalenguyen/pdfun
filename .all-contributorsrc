@@ -1,5 +1,5 @@
 {
-  "projectName": "PDFun",
+  "projectName": "pdfun",
   "projectOwner": "dalenguyen",
   "repoType": "github",
   "repoHost": "https://github.com",
@@ -12,5 +12,18 @@
   "linkToUsage": true,
   "skipCi": true,
   "commitConvention": "angular",
-  "contributors": []
+  "contributors": [
+    {
+      "login": "dalenguyen",
+      "name": "Dale Nguyen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14116156?v=4",
+      "profile": "https://dalenguyen.me",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas"
+      ]
+    }
+  ],
+  "commitType": "docs"
 }
