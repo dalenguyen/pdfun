@@ -42,6 +42,7 @@ PDFun welcomes contributors! Please read the [contributing doc](https://github.c
   <tbody>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://dalenguyen.me"><img src="https://avatars.githubusercontent.com/u/14116156?v=4?s=100" width="100px;" alt="Dale Nguyen"/><br /><sub><b>Dale Nguyen</b></sub></a><br /><a href="https://github.com/dalenguyen/pdfun/commits?author=dalenguyen" title="Code">💻</a> <a href="https://github.com/dalenguyen/pdfun/commits?author=dalenguyen" title="Documentation">📖</a> <a href="#ideas-dalenguyen" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://brandonroberts.dev"><img src="https://avatars.githubusercontent.com/u/42211?v=4?s=100" width="100px;" alt="Brandon Roberts"/><br /><sub><b>Brandon Roberts</b></sub></a><br /><a href="https://github.com/dalenguyen/pdfun/commits?author=brandonroberts" title="Code">💻</a></td>
     </tr>
   </tbody>
   <tfoot>
