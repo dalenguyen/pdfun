@@ -9,10 +9,8 @@ import { LoginComponent, ProfileComponent } from '@pdfun/ui/auth'
   imports: [CommonModule, LoginComponent, ProfileComponent],
   template: `
     <header class="m-8 flex justify-between items-center">
-      <a class="flex items-center" href="#">
-        <span class="text-900 font-medium text-2xl line-height-3 mr-8"
-          >PDFun</span
-        >
+      <a class="flex items-center" href="/">
+        <img src="/assets/pdfun.png" alt="PDFun logo" class="w-10" />
       </a>
 
       @defer (on timer(200ms)) {
