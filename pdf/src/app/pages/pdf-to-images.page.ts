@@ -1,4 +1,3 @@
-import { RouteMeta } from '@analogjs/router'
 import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
 import { User } from '@angular/fire/auth'
@@ -15,19 +14,24 @@ import { PdfHandlerBase } from '../shared/components/pdf-handler-base/pdf-handle
 import { ShoutOutComponent } from '../shared/components/shout-out/shout-out.component'
 import { getNextDays } from '../shared/utils'
 
-export const routeMeta: RouteMeta = {
-  title: 'PDFun - Resize',
-}
-
 @Component({
-  selector: 'pdf-home',
+  selector: 'pdf-to-images',
   standalone: true,
+  imports: [
+    CommonModule,
+    ButtonModule,
+    ToastModule,
+    ShoutOutComponent,
+    FileUploadModule,
+    BuyMeACoffeeComponent,
+    DisclaimerComponent,
+  ],
   template: `
     <p-toast />
 
-    <h1 class="text-xl py-4">Resize your PDF file</h1>
+    <h1 class="text-xl py-4">Convert your PDF file to Images</h1>
 
-    <pdf-shout-out [type]="TaskType.RESIZE" />
+    <pdf-shout-out [type]="TaskType.IMAGE_CONVERSION" />
 
     <p-fileUpload
       mode="advanced"
@@ -36,7 +40,7 @@ export const routeMeta: RouteMeta = {
       name="myfile"
       maxFileSize="10000000"
       fileLimit="1"
-      uploadLabel="Upload & Resize"
+      uploadLabel="Upload & Convert"
       (uploadHandler)="onUpload($event)"
       [customUpload]="true"
     />
@@ -47,33 +51,16 @@ export const routeMeta: RouteMeta = {
     <p class="text-red-500">{{ errorMessage() }}</p>
     } @if(downloadUrl$ | async; as downloadUrl) {
 
-    <!-- Compare file size -->
-    @if(this.newFileSize() > this.currentFileSize()) {
-    <p>
-      Congratulations! Your file is reduced by
-      {{ this.newFileSize() - this.currentFileSize() }} bytes!
-    </p>
-    }
-
     <a class="block my-4 underline" [href]="downloadUrl" target="_blank"
-      >Download PDF</a
+      >Download Images</a
     >
     <lib-buy-me-a-coffee />
     }
 
     <pdf-disclaimer class="block mt-8" />
   `,
-  imports: [
-    CommonModule,
-    ButtonModule,
-    FileUploadModule,
-    ToastModule,
-    BuyMeACoffeeComponent,
-    ShoutOutComponent,
-    DisclaimerComponent,
-  ],
 })
-export default class HomeComponent extends PdfHandlerBase {
+export default class PdfToImagesComponent extends PdfHandlerBase {
   override async onUpload(event: FileUploadHandlerEvent) {
     // set a new document Id if users want to retry without reloading the page
     this.currentID.set(nanoid())
@@ -107,7 +94,7 @@ export default class HomeComponent extends PdfHandlerBase {
           updatedAt: result.metadata.updated,
           pdfId: this.currentID(),
           uid,
-          taskType: TaskType.RESIZE,
+          taskType: TaskType.IMAGE_CONVERSION,
           // reset resize file name
           taskResponse: null,
           // Document will be deleted in 1 day

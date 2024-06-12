@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^18.0.0",
-    "@angular/core": "^18.0.0"
+    "@angular/core": "^18.0.0",
+    "@angular/router": "18.0.0",
+    "primeng": "17.18.0",
+    "@nx/angular": "19.1.0"
   },
   "sideEffects": false
 }

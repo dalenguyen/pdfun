@@ -9,7 +9,7 @@ service firebase.storage {
 
       // only allow public resized files to be read
       // with this pattern `RESIZE-pdfun-1245515151515.pdf`
-      allow read: if imageId.matches("RESIZE-pdfun-.*\\.pdf");
+      allow read: if imageId.matches("RESIZE-pdfun-.*\\.pdf") || imageId.matches(".*\\.zip");
     }
 
     // PRIVATE RULES

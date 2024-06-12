@@ -11,7 +11,7 @@ import { ButtonModule } from 'primeng/button'
     <section class="m-auto text-center">
       <p-button
         size="small"
-        label="Login"
+        label="Log in"
         icon="pi pi-google"
         (onClick)="tryLogin()"
       />
