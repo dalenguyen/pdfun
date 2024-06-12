@@ -7,6 +7,13 @@ const storage = new Storage()
 // The ID of your GCS bucket
 const bucketName = 'pdfun-prod.appspot.com'
 
+/**
+ * Download file from cloud storage to /tmp folder
+ * Destination: /tmp/{pdfId}/{fileName}
+ *
+ * @param uploadedFile UploadedFile
+ * @returns string (file destination)
+ */
 export const downloadFile = async (uploadedFile: UploadedFile) => {
   // prepare new folder for downloaded file
   createNewFolder(`${FilePath.tmp}/${uploadedFile.pdfId}`)
@@ -37,6 +44,10 @@ export const uploadFile = async (
   uploadedFile: UploadedFile,
   fileName: string
 ) => {
+  console.log(
+    `${FilePath.tmp}/${uploadedFile.pdfId}/${fileName} uploaded to ${uploadedFile.filePath}`
+  )
+
   const options = {
     destination: `${uploadedFile.filePath}/${fileName}`,
   }
@@ -44,8 +55,4 @@ export const uploadFile = async (
   await storage
     .bucket(bucketName)
     .upload(`${FilePath.tmp}/${uploadedFile.pdfId}/${fileName}`, options)
-
-  console.log(
-    `${FilePath.tmp}/${uploadedFile.pdfId}/${fileName} uploaded to ${uploadedFile.filePath}`
-  )
 }

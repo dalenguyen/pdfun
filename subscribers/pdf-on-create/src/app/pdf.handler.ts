@@ -2,6 +2,7 @@ import type { Request, Response } from 'express'
 import { getDocument } from '../services'
 import { addAnalytics } from './analytics.handler'
 import { handlePDFResize } from './pdf-resize.handler'
+import { handlePDFToImages } from './pdf-to-images.handler'
 
 export const handler = async (req: Request, res: Response) => {
   const documentPath = req.headers['ce-document'] as string
@@ -28,6 +29,11 @@ export const handler = async (req: Request, res: Response) => {
   switch (uploadedFileData.taskType) {
     case 'RESIZE':
       await handlePDFResize(uploadedFileData, documentPath)
+      await addAnalytics(uploadedFileData)
+      break
+
+    case 'IMAGE_CONVERSION':
+      await handlePDFToImages(uploadedFileData, documentPath)
       await addAnalytics(uploadedFileData)
       break
 
