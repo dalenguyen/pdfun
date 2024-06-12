@@ -1,1 +1,1 @@
-export * from './resize.model'
+export * from './pdf.model'
