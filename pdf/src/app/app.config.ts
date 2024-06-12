@@ -11,6 +11,7 @@ import { getStorage, provideStorage } from '@angular/fire/storage'
 import { provideClientHydration } from '@angular/platform-browser'
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
 import { withComponentInputBinding } from '@angular/router'
+import { MessageService } from 'primeng/api'
 
 const firebaseConfig = JSON.parse(import.meta.env['VITE_FIREBASE_CONFIG'])
 export const appConfig: ApplicationConfig = {
@@ -30,5 +31,7 @@ export const appConfig: ApplicationConfig = {
     provideAuth(() => getAuth()),
     provideStorage(() => getStorage()),
     provideFirestore(() => getFirestore()),
+    // PrimeNG
+    MessageService,
   ],
 }

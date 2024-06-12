@@ -2,7 +2,8 @@ FROM node:20-slim
 
 RUN set -ex; \
   apt-get -y update; \
-  apt-get -y install ghostscript; \
+  apt-get -y install ghostscript \
+  zip; \
   rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src/app
