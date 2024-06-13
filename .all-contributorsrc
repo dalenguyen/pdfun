@@ -41,6 +41,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "yshashi",
+      "name": "Sashikumar Yadav",
+      "avatar_url": "https://avatars.githubusercontent.com/u/21971232?v=4",
+      "profile": "https://letsprogram.in",
+      "contributions": [
+        "code",
+        "design"
+      ]
     }
   ],
   "commitType": "docs"
