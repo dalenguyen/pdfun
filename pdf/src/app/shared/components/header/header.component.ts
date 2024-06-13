@@ -19,6 +19,19 @@ import { LoginComponent, ProfileComponent } from '@pdfun/ui/auth'
     RouterLinkWithHref,
     RouterLinkActive,
   ],
+  styles: `
+  .link {
+    color: #9ca3af;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .link:hover {
+    color: white;
+  }
+  .active-link {
+    color: #e5e7eb;
+  }
+  `,
   template: `
     <!-- REPLACE With PrimeNG Menubar -->
     <header class="bg-gray-800 py-4 px-6">
@@ -40,17 +53,17 @@ import { LoginComponent, ProfileComponent } from '@pdfun/ui/auth'
             <div class="flex gap-4">
               <a
                 routerLink="/"
-                routerLinkActive="text-gray-200"
                 [routerLinkActiveOptions]="{ exact: true }"
-                class="text-gray-400 no-underline hover:text-white transition-colors duration-300"
+                routerLinkActive="active-link"
+                class="link"
               >
                 Resize PDF
               </a>
 
               <a
                 routerLink="/pdf-to-images"
-                routerLinkActive="text-gray-200"
-                class="text-gray-400 no-underline hover:text-white transition-colors duration-300"
+                routerLinkActive="active-link"
+                class="link"
               >
                 PDF to Images
               </a>

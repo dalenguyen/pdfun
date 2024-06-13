@@ -13,6 +13,7 @@ import { ToastModule } from 'primeng/toast'
 import { DisclaimerComponent } from '../shared/components/disclaimer/disclaimer.component'
 import { PdfHandlerBase } from '../shared/components/pdf-handler-base/pdf-handler-base.directive'
 import { ShoutOutComponent } from '../shared/components/shout-out/shout-out.component'
+import { ByteToKbPipe } from '../shared/pipes/bytes-to-kb.pipe'
 import { getNextDays } from '../shared/utils'
 
 export const routeMeta: RouteMeta = {
@@ -55,7 +56,9 @@ export const routeMeta: RouteMeta = {
       @if(this.newFileSize() < this.currentFileSize()) {
       <p class="mb-4">
         Congratulations! Your file is reduced by
-        {{ this.currentFileSize() - this.newFileSize() }} bytes!
+        <strong
+          >{{ this.currentFileSize() - this.newFileSize() | byteToKb }}!</strong
+        >
       </p>
       }
 
@@ -82,6 +85,7 @@ export const routeMeta: RouteMeta = {
     BuyMeACoffeeComponent,
     ShoutOutComponent,
     DisclaimerComponent,
+    ByteToKbPipe,
   ],
 })
 export default class HomeComponent extends PdfHandlerBase {
