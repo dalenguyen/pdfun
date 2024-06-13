@@ -2,8 +2,7 @@
 
 <!-- prettier-ignore-start -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/github/all-contributors/dalenguyen/pdfun?color=ee8449&style=flat-square)](#contributors)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- prettier-ignore-end -->
 
@@ -66,6 +65,7 @@ PDFun welcomes contributors! Please read the [contributing doc](https://github.c
       <td align="center" valign="top" width="14.28%"><a href="https://dalenguyen.me"><img src="https://avatars.githubusercontent.com/u/14116156?v=4?s=100" width="100px;" alt="Dale Nguyen"/><br /><sub><b>Dale Nguyen</b></sub></a><br /><a href="https://github.com/dalenguyen/pdfun/commits?author=dalenguyen" title="Code">💻</a> <a href="https://github.com/dalenguyen/pdfun/commits?author=dalenguyen" title="Documentation">📖</a> <a href="#ideas-dalenguyen" title="Ideas, Planning, & Feedback">🤔</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://brandonroberts.dev"><img src="https://avatars.githubusercontent.com/u/42211?v=4?s=100" width="100px;" alt="Brandon Roberts"/><br /><sub><b>Brandon Roberts</b></sub></a><br /><a href="https://github.com/dalenguyen/pdfun/commits?author=brandonroberts" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://monacodelisa.com/"><img src="https://avatars.githubusercontent.com/u/64324417?v=4?s=100" width="100px;" alt="Esther White"/><br /><sub><b>Esther White</b></sub></a><br /><a href="https://github.com/dalenguyen/pdfun/commits?author=monacodelisa" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://letsprogram.in"><img src="https://avatars.githubusercontent.com/u/21971232?v=4?s=100" width="100px;" alt="Sashikumar Yadav"/><br /><sub><b>Sashikumar Yadav</b></sub></a><br /><a href="https://github.com/dalenguyen/pdfun/commits?author=yshashi" title="Code">💻</a> <a href="#design-yshashi" title="Design">🎨</a></td>
     </tr>
   </tbody>
   <tfoot>
