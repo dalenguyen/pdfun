@@ -1,3 +1,4 @@
+import { RouteMeta } from '@analogjs/router'
 import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
 import { User } from '@angular/fire/auth'
@@ -13,6 +14,10 @@ import { DisclaimerComponent } from '../shared/components/disclaimer/disclaimer.
 import { PdfHandlerBase } from '../shared/components/pdf-handler-base/pdf-handler-base.directive'
 import { ShoutOutComponent } from '../shared/components/shout-out/shout-out.component'
 import { getNextDays } from '../shared/utils'
+
+export const routeMeta: RouteMeta = {
+  title: 'PDFun - Convert to Images',
+}
 
 @Component({
   selector: 'pdf-to-images',
