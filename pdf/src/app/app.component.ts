@@ -8,12 +8,14 @@ import { NewsletterComponent } from './shared/components/newsletter/newsletter.c
   selector: 'pdf-root',
   standalone: true,
   template: `
-    <pdf-header />
-    <main class="m-8">
-      <router-outlet></router-outlet>
-    </main>
-    <pdf-newsletter class="block max-w-96 mx-auto mt-20" />
-    <pdf-footer />
+    <div class="flex flex-col min-h-screen">
+      <pdf-header />
+      <main class="m-8 container flex-1">
+        <router-outlet></router-outlet>
+      </main>
+      <pdf-newsletter class="block w-96 mx-auto mt-20" />
+      <pdf-footer />
+    </div>
   `,
   imports: [
     RouterOutlet,

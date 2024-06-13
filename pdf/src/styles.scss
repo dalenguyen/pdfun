@@ -18,9 +18,43 @@
 
 html,
 body {
+  margin: 0;
+  padding: 0;
   display: block;
   height: 100%;
-  max-width: 786px;
-  margin: 0 auto;
   font-family: var(--font-family);
+}
+// Tailwind CSS for container was override by primeng and p-container was not working
+// New to check that issue and later can remove this
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
 }
