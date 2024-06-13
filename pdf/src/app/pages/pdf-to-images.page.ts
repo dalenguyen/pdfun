@@ -72,7 +72,7 @@ export const routeMeta: RouteMeta = {
         target="_blank"
         class="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 mb-4"
       >
-        <i class="fas fa-download mr-2"></i>
+        <i class="pi pi-download pr-2"></i>
         Download Images
       </a>
 
