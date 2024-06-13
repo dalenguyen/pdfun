@@ -1,6 +1,20 @@
 # Pdfun
 
-PDF utilities
+<!-- prettier-ignore-start -->
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/github/all-contributors/dalenguyen/pdfun?color=ee8449&style=flat-square)](#contributors)
+
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+<!-- prettier-ignore-end -->
+
+[![Twitter](https://img.shields.io/twitter/follow/PDFun_xyz)](https://twitter.com/PDFun_xyz)
+
+Open source PDF services. Built with:
+
+- Analogjs (Angular)
+- Nx Workspace
+- Firebase
+- GCP
 
 ![PDFun Demo](/docs/images/pdfun.png)
 
@@ -10,7 +24,15 @@ PDF utilities
 yarn deploy
 ```
 
-## Local development
+## Local development (Web)
+
+First, you need to rename the `.env-template` to `.env` and update the environment file.
+
+> Tip: to turn Firebase service account to string for the environment, you can run `JSON.stringify(SERVICE_ACCOUNT_OBJECT)`.
+
+After that, you can run `yarn deploy:rules` to deploy Firestore & Cloud Storage security rules.
+
+## Local development (API)
 
 Run the following command to set the default credentials
 
