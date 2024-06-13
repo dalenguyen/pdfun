@@ -34,35 +34,53 @@ export const routeMeta: RouteMeta = {
   template: `
     <p-toast />
 
-    <h1 class="text-xl py-4">Convert your PDF file to Images</h1>
+    <div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-md">
+      <h1 class="text-2xl font-semibold mb-4">
+        Convert your PDF file to Images
+      </h1>
 
-    <pdf-shout-out [type]="TaskType.IMAGE_CONVERSION" />
+      <pdf-shout-out [type]="TaskType.IMAGE_CONVERSION" />
 
-    <p-fileUpload
-      mode="advanced"
-      chooseLabel="Choose a PDF file"
-      accept="application/pdf"
-      name="myfile"
-      maxFileSize="10000000"
-      fileLimit="1"
-      uploadLabel="Upload & Convert"
-      (uploadHandler)="onUpload($event)"
-      [customUpload]="true"
-    />
+      <p-fileUpload
+        mode="advanced"
+        chooseLabel="Choose a PDF file"
+        accept="application/pdf"
+        name="myfile"
+        maxFileSize="10000000"
+        fileLimit="1"
+        uploadLabel="Upload & Convert"
+        (uploadHandler)="onUpload($event)"
+        [customUpload]="true"
+        class="mb-4"
+      />
 
-    @if(loading()) {
-    <p>Your file is uploaded and processing. Please wait for a moment ;)</p>
-    } @if(errorMessage()) {
-    <p class="text-red-500">{{ errorMessage() }}</p>
-    } @if(downloadUrl$ | async; as downloadUrl) {
+      @if(loading()) {
+      <div class="flex items-center mb-4">
+        <div class="mr-2">
+          <i class="fa fa-spinner fa-spin text-blue-500"></i>
+        </div>
+        <span
+          >Your file is uploaded and processing. Please wait for a moment.</span
+        >
+      </div>
+      } @if(errorMessage()) {
+      <p class="text-red-500 mb-4">{{ errorMessage() }}</p>
+      } @if(downloadUrl$ | async; as downloadUrl) {
 
-    <a class="block my-4 underline" [href]="downloadUrl" target="_blank"
-      >Download Images</a
-    >
-    <lib-buy-me-a-coffee />
-    }
+      <a
+        [href]="downloadUrl"
+        target="_blank"
+        class="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 mb-4"
+      >
+        <i class="pi pi-download pr-2"></i>
+        Download Images
+      </a>
 
-    <pdf-disclaimer class="block mt-8" />
+      <lib-buy-me-a-coffee />
+      }
+
+      <pdf-disclaimer class="mt-8" />
+    </div>
   `,
 })
 export default class PdfToImagesComponent extends PdfHandlerBase {

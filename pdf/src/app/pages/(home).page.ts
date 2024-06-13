@@ -25,43 +25,54 @@ export const routeMeta: RouteMeta = {
   template: `
     <p-toast />
 
-    <h1 class="text-xl py-4">Resize your PDF file</h1>
+    <div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-md">
+      <h1 class="text-2xl font-semibold mb-4">Resize your PDF file</h1>
 
-    <pdf-shout-out [type]="TaskType.RESIZE" />
+      <pdf-shout-out [type]="TaskType.RESIZE" />
 
-    <p-fileUpload
-      mode="advanced"
-      chooseLabel="Choose a PDF file"
-      accept="application/pdf"
-      name="myfile"
-      maxFileSize="10000000"
-      fileLimit="1"
-      uploadLabel="Upload & Resize"
-      (uploadHandler)="onUpload($event)"
-      [customUpload]="true"
-    />
+      <p-fileUpload
+        mode="advanced"
+        chooseLabel="Choose a PDF file"
+        accept="application/pdf"
+        name="myfile"
+        maxFileSize="10000000"
+        fileLimit="1"
+        uploadLabel="Upload & Resize"
+        (uploadHandler)="onUpload($event)"
+        [customUpload]="true"
+        class="mb-4"
+      />
 
-    @if(loading()) {
-    <p>Your file is uploaded and processing. Please wait for a moment ;)</p>
-    } @if(errorMessage()) {
-    <p class="text-red-500">{{ errorMessage() }}</p>
-    } @if(downloadUrl$ | async; as downloadUrl) {
+      @if(loading()) {
+      <div class="flex items-center mb-4">
+        <p>Your file is uploaded and processing. Please wait for a moment ;)</p>
+      </div>
+      } @if(errorMessage()) {
+      <p class="text-red-500 mb-4">{{ errorMessage() }}</p>
+      } @if(downloadUrl$ | async; as downloadUrl) {
 
-    <!-- Compare file size -->
-    @if(this.newFileSize() > this.currentFileSize()) {
-    <p>
-      Congratulations! Your file is reduced by
-      {{ this.newFileSize() - this.currentFileSize() }} bytes!
-    </p>
-    }
+      <!-- Compare file size -->
+      @if(this.newFileSize() < this.currentFileSize()) {
+      <p class="mb-4">
+        Congratulations! Your file is reduced by
+        {{ this.currentFileSize() - this.newFileSize() }} bytes!
+      </p>
+      }
 
-    <a class="block my-4 underline" [href]="downloadUrl" target="_blank"
-      >Download PDF</a
-    >
-    <lib-buy-me-a-coffee />
-    }
+      <a
+        [href]="downloadUrl"
+        target="_blank"
+        class="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 mb-4"
+      >
+        <i class="pi pi-download pr-2"></i>
+        Download PDF
+      </a>
 
-    <pdf-disclaimer class="block mt-8" />
+      <lib-buy-me-a-coffee />
+      }
+
+      <pdf-disclaimer class="mt-8" />
+    </div>
   `,
   imports: [
     CommonModule,

@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div id="mc_embed_shell max-w-52 margin-auto">
+    <div id="mc_embed_shell">
       <link
         href="//cdn-images.mailchimp.com/embedcode/classic-061523.css"
         rel="stylesheet"
@@ -98,4 +98,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NewsletterComponent { }
+export class NewsletterComponent {}
