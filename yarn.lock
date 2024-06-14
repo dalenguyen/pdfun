@@ -20,57 +20,44 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
-"@analogjs/content@1.3.1":
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/@analogjs/content/-/content-1.3.1.tgz#b53267220b3c71b82b429a7f7992ae4d6ca5ad62"
-  integrity sha512-3ihT9I+lnYjwVOrs3F3QBWOOSIjFc4U5WpHvELbe24THxSfUsyolWWOzthDtnb6h39gTmJyNKjXo4Dp6FxB71A==
+"@analogjs/content@1.5.0", "@analogjs/content@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@analogjs/content/-/content-1.5.0.tgz#7177ebf15ae55ff89532e72a9da75302a773cf60"
+  integrity sha512-W66EPyw4dM/sfEP46msRFVu98lJJNy8h8LMXZnyDhXkKnNGvYCT0RYdjiJ7HrQbF3zLx0c7jyNeh4qRZeMW7UQ==
   dependencies:
     tslib "^2.3.0"
 
-"@analogjs/content@^1.3.1":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@analogjs/content/-/content-1.4.0.tgz#0a6f057e0d5329dbb11cdbff2f51c524cf502f68"
-  integrity sha512-Pko0HQ2+HDgPtOYCLSRawYtwdo4vusHKgECwOjz4oWdGN5++TfDVHMqIMcZ6gQpKXEozQv4FTgRbn+aOlF0BPA==
+"@analogjs/platform@1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@analogjs/platform/-/platform-1.5.0.tgz#905171c667741cba81e32ebf3822f305b6b0aabd"
+  integrity sha512-yraNodgTW1lwJqTYPlBUnFr0q1DuUImOwiXm47OjZYkvmYaOGdVTlkitgWZOiHJaVhpc1alPl7v7kmkSn1ge3g==
   dependencies:
-    tslib "^2.3.0"
+    "@analogjs/vite-plugin-angular" "^1.5.0"
+    "@analogjs/vite-plugin-nitro" "^1.5.0"
+    nitropack "^2.9.0"
 
-"@analogjs/platform@1.3.1":
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/@analogjs/platform/-/platform-1.3.1.tgz#e1188652f30dbd1c9c9efb6c3228aa62fc0d6793"
-  integrity sha512-j4tgNq/2IbYa5BLJXxOpCFpsajyETB2J7tKxfQnH8ErBk11zA2iqvPAmrpcfYvgH79cbo3oJDkJZdpYORLVotw==
-  dependencies:
-    "@analogjs/vite-plugin-angular" "^1.3.1"
-    "@analogjs/vite-plugin-nitro" "^1.3.1"
-    nitropack "^2.6.0"
-
-"@analogjs/router@1.3.1":
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/@analogjs/router/-/router-1.3.1.tgz#e6c4ac44265187cc0580aaff86b965b552915137"
-  integrity sha512-YeTuYlBcS6aj5TZMAI6Bs9YLZyErWhSfIsb7snfKNnnSQ0kloSosZDajbzR6pi0JoMCp8pJlxet4q6H5zv49hQ==
+"@analogjs/router@1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@analogjs/router/-/router-1.5.0.tgz#205fe97be440a21fc9d9451b186bf77a6beb99f1"
+  integrity sha512-6iJvr/MILti4GKiEuVttCCB3yIyFWlNdPlFbZIOR19WwkMgYX8F01KjrThJAANZyHuQqJwTpWjrCIrR2PZ/A8A==
   dependencies:
     tslib "^2.0.0"
   optionalDependencies:
-    "@analogjs/content" "^1.3.1"
+    "@analogjs/content" "^1.5.0"
 
-"@analogjs/vite-plugin-angular@1.3.1":
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/@analogjs/vite-plugin-angular/-/vite-plugin-angular-1.3.1.tgz#34b03a2622de8f39b3ec1e741b186b3085a8f00c"
-  integrity sha512-Q/F+X5NBixMZnHDUffvB9it73326sdfVt35TJHMezMAC1ON370A2a/c/GEOZOUjczDU8JHvfgKzlsMQRHafanQ==
+"@analogjs/vite-plugin-angular@1.5.0", "@analogjs/vite-plugin-angular@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@analogjs/vite-plugin-angular/-/vite-plugin-angular-1.5.0.tgz#c5ef95b445ef404b11c95bd260d8b7b96a276a3c"
+  integrity sha512-e88LyREExpKc6KgpRUcKu8JJO0k6ZVDHYzsKEzRVxbz34e8D3LTGJxYAoiW6ucxW4irKbhHZlySll5+cdtvfXA==
   dependencies:
     ts-morph "^21.0.0"
 
-"@analogjs/vite-plugin-angular@^1.3.1":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@analogjs/vite-plugin-angular/-/vite-plugin-angular-1.4.0.tgz#ea21325894cd652c0604866536a3e7003192f309"
-  integrity sha512-T4ygcLvgAK57RYpjfBo1pL2H9ibS4MgBh7nDNH4X7eRW6OjOC1wWg8bjl0lRueiFdKIOpeRu/fNMbSPY6Fb51g==
+"@analogjs/vite-plugin-nitro@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@analogjs/vite-plugin-nitro/-/vite-plugin-nitro-1.5.0.tgz#37f4c0a51ac3d94b8f3498b560d4bbeaab751641"
+  integrity sha512-yXXSKMJBeX8/tOa0LhP12z0qKFmqz0nav+EDVr0JCFuCzzoUjbg2BSNDY/Pbm4whnOCzzx0IwuVE7GseF36yUQ==
   dependencies:
-    ts-morph "^21.0.0"
-
-"@analogjs/vite-plugin-nitro@^1.3.1":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@analogjs/vite-plugin-nitro/-/vite-plugin-nitro-1.4.0.tgz#e5c4cafd21b53d047583fa58a633d3211eb6e1fb"
-  integrity sha512-BC6rK7u6wFGMXqwMRcxQ5Nd+nlMKzR9n07QccCQ73/Mx/JjAYgMiB/dVrj95Zl8DnI02o6/5oxw5f6G32Dk3KQ==
-  dependencies:
+    esbuild "^0.20.1"
     nitropack "^2.9.0"
     xmlbuilder2 "^3.0.2"
 
@@ -10716,6 +10703,11 @@ marked-highlight@^2.0.1:
   resolved "https://registry.yarnpkg.com/marked-highlight/-/marked-highlight-2.1.1.tgz#144120e32363f042b420276a9c7b8dab748f630f"
   integrity sha512-ktdqwtBne8rim5mb+vvZ9FzElGFb+CHCgkx/g6DSzTjaSrVnxsJdSzB5YgCkknFrcOW+viocM1lGyIjC0oa3fg==
 
+marked-mangle@^1.1.7:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/marked-mangle/-/marked-mangle-1.1.8.tgz#45e6ef91ae4d8865e542969218ce3d98996281fa"
+  integrity sha512-vN6a7AxdxP9PHQ6xI0EN/CesMOjcjqP0+JN/0cO2zypzyiyUhev82nWxA+/9JxYQawDErq8rT3G19AM+IgpmlQ==
+
 marked@^5.0.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/marked/-/marked-5.1.2.tgz#62b5ccfc75adf72ca3b64b2879b551d89e77677f"
@@ -11384,7 +11376,7 @@ nice-napi@^1.0.2:
     node-addon-api "^3.0.0"
     node-gyp-build "^4.2.2"
 
-nitropack@^2.6.0, nitropack@^2.9.0:
+nitropack@^2.9.0:
   version "2.9.6"
   resolved "https://registry.yarnpkg.com/nitropack/-/nitropack-2.9.6.tgz#90af114b796872f34e125e780e6148525149769f"
   integrity sha512-HP2PE0dREcDIBVkL8Zm6eVyrDd10/GI9hTL00PHvjUM8I9Y/2cv73wRDmxNyInfrx/CJKHATb2U/pQrqpzJyXA==

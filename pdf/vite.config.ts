@@ -2,7 +2,8 @@
 
 import analog from '@analogjs/platform'
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin'
-import { defineConfig, splitVendorChunkPlugin } from 'vite'
+import { visualizer } from 'rollup-plugin-visualizer'
+import { Plugin, defineConfig, splitVendorChunkPlugin } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -14,7 +15,7 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: '../dist/./pdf/client',
       reportCompressedSize: true,
-      target: ['es2020'],
+      target: ['es2022'],
     },
     server: {
       fs: {
@@ -43,6 +44,7 @@ export default defineConfig(({ mode }) => {
       }),
 
       nxViteTsPaths(),
+      visualizer() as Plugin,
       splitVendorChunkPlugin(),
     ],
     test: {
