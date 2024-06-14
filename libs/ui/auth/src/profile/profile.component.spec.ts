@@ -1,4 +1,9 @@
+import {
+  NO_ERRORS_SCHEMA,
+  provideExperimentalZonelessChangeDetection,
+} from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { LOGOUT } from '@pdfun/angular/firebase'
 import { ProfileComponent } from './profile.component'
 
 describe('ProfileComponent', () => {
@@ -8,6 +13,14 @@ describe('ProfileComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ProfileComponent],
+      providers: [
+        provideExperimentalZonelessChangeDetection(),
+        {
+          provide: LOGOUT,
+          useValue: {},
+        },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents()
 
     fixture = TestBed.createComponent(ProfileComponent)
