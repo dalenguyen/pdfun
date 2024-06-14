@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
   displayName: 'pdf-on-create',
-  preset: '../../jest.preset.js',
+  preset: '../../jest.preset.cjs',
   testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]s$': '@swc/jest',
