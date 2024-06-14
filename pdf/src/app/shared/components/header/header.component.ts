@@ -40,17 +40,17 @@ import { LoginComponent, ProfileComponent } from '@pdfun/ui/auth'
             <div class="flex gap-4">
               <a
                 routerLink="/"
-                routerLinkActive="text-gray-200"
                 [routerLinkActiveOptions]="{ exact: true }"
-                class="text-gray-400 no-underline hover:text-white transition-colors duration-300"
+                routerLinkActive="active"
+                class="link"
               >
                 Resize PDF
               </a>
 
               <a
                 routerLink="/pdf-to-images"
-                routerLinkActive="text-gray-200"
-                class="text-gray-400 no-underline hover:text-white transition-colors duration-300"
+                routerLinkActive="active"
+                class="link"
               >
                 PDF to Images
               </a>
