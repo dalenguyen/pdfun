@@ -1,4 +1,4 @@
-@layer tailwind-base, tailwind-utilities, primeng;
+@layer tailwind-base, tailwind-utilities, tailwind-component, primeng;
 
 @layer tailwind-base {
   @tailwind base;
@@ -6,6 +6,19 @@
 
 @layer tailwind-utilities {
   @tailwind utilities;
+}
+
+@layer tailwind-components {
+  @tailwind components;
+}
+
+@layer tailwind-components {
+  .link {
+    @apply text-gray-400 no-underline hover:text-white transition-colors duration-300;
+  }
+  .active {
+    @apply text-gray-200;
+  }
 }
 
 @import 'primeng/resources/themes/tailwind-light/theme.css';

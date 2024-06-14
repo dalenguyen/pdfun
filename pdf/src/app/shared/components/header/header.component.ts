@@ -19,19 +19,6 @@ import { LoginComponent, ProfileComponent } from '@pdfun/ui/auth'
     RouterLinkWithHref,
     RouterLinkActive,
   ],
-  styles: `
-  .link {
-    color: #9ca3af;
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  .link:hover {
-    color: white;
-  }
-  .active-link {
-    color: #e5e7eb;
-  }
-  `,
   template: `
     <!-- REPLACE With PrimeNG Menubar -->
     <header class="bg-gray-800 py-4 px-6">
@@ -54,7 +41,7 @@ import { LoginComponent, ProfileComponent } from '@pdfun/ui/auth'
               <a
                 routerLink="/"
                 [routerLinkActiveOptions]="{ exact: true }"
-                routerLinkActive="active-link"
+                routerLinkActive="active"
                 class="link"
               >
                 Resize PDF
@@ -62,7 +49,7 @@ import { LoginComponent, ProfileComponent } from '@pdfun/ui/auth'
 
               <a
                 routerLink="/pdf-to-images"
-                routerLinkActive="active-link"
+                routerLinkActive="active"
                 class="link"
               >
                 PDF to Images
