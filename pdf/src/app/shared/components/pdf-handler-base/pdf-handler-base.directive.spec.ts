@@ -1,8 +1,10 @@
-import { PdfHandlerBaseDirective } from './pdf-handler-base.directive'
+import { PdfHandlerBase } from './pdf-handler-base.directive'
+
+class PDFHandler extends PdfHandlerBase {}
 
 describe('PdfHandlerBaseDirective', () => {
   it('should create an instance', () => {
-    const directive = new PdfHandlerBaseDirective()
+    const directive = new PDFHandler()
     expect(directive).toBeTruthy()
   })
 })
