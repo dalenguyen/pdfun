@@ -53,6 +53,11 @@ export default defineConfig(({ mode }) => {
       setupFiles: ['src/test-setup.ts'],
       include: ['**/*.spec.ts'],
       reporters: ['default'],
+      server: {
+        deps: {
+          inline: ['@angular/fire'],
+        },
+      },
     },
     define: {
       'import.meta.vitest': mode !== 'production',
