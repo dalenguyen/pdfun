@@ -1,6 +1,6 @@
 import { TaskResponse, UploadedFile } from '@pdfun/domain'
 import {
-  coverToImages,
+  convertToImages,
   downloadFile,
   updateDocument,
   uploadFile,
@@ -12,7 +12,7 @@ export const handlePDFToImages = async (
 ) => {
   await downloadFile(uploadedFileData)
 
-  const converted = coverToImages(uploadedFileData)
+  const converted = convertToImages(uploadedFileData)
 
   const taskResponse: TaskResponse = {
     success: false,
@@ -26,7 +26,7 @@ export const handlePDFToImages = async (
     // only upload and save data when resize is success
     await uploadFile(uploadedFileData, taskResponse.fileName)
   } else {
-    console.error(`Failed to covert file to images`)
+    console.error(`Failed to convert file to images`)
   }
 
   await updateDocument(documentPath, {

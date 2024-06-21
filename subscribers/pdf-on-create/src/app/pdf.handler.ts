@@ -1,6 +1,7 @@
 import type { Request, Response } from 'express'
 import { getDocument } from '../services'
 import { addAnalytics } from './analytics.handler'
+import { handlePDFPasswordRemoval } from './pdf-password-removal.handler'
 import { handlePDFResize } from './pdf-resize.handler'
 import { handlePDFToImages } from './pdf-to-images.handler'
 
@@ -34,6 +35,11 @@ export const handler = async (req: Request, res: Response) => {
 
     case 'IMAGE_CONVERSION':
       await handlePDFToImages(uploadedFileData, documentPath)
+      await addAnalytics(uploadedFileData)
+      break
+
+    case 'PASSWORD_REMOVAL':
+      await handlePDFPasswordRemoval(uploadedFileData, documentPath)
       await addAnalytics(uploadedFileData)
       break
 

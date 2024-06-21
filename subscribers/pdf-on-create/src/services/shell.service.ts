@@ -2,7 +2,11 @@ import { FilePath, UploadedFile } from '@pdfun/domain'
 import fs from 'fs'
 import type { ShellString } from 'shelljs'
 import shell from 'shelljs'
-import { ImageConversionOption, ResizeOption } from '../models'
+import {
+  ImageConversionOption,
+  PasswordRemovalOption,
+  ResizeOption,
+} from '../models'
 
 /**
  * Start to resize file using default setting from ghostscript
@@ -40,7 +44,7 @@ export const resizeFile = (
   return result
 }
 
-export const coverToImages = (
+export const convertToImages = (
   uploadedFileData: UploadedFile,
   options: ImageConversionOption = {}
 ): ShellString => {
@@ -49,7 +53,7 @@ export const coverToImages = (
   // default to JPEG / r200 to save storage for free users
   const { device = 'jpeg', resolution = 'r200', format = 'jpg' } = options
 
-  shell.echo(`Start to covert file: ${fileName}`)
+  shell.echo(`Start to convert file: ${fileName}`)
 
   shell.cd(`${FilePath.tmp}/${uploadedFileData.pdfId}`)
 
@@ -68,6 +72,28 @@ export const coverToImages = (
 
   if (result.code !== 0) {
     console.error('Error: Failed to resize file')
+    shell.exit(1)
+  }
+
+  return result
+}
+
+export const removePassword = (
+  uploadedFileData: UploadedFile,
+  options: PasswordRemovalOption = {}
+) => {
+  const { fileName, password } = uploadedFileData
+  const { device = 'pdfwrite' } = options
+
+  shell.echo(`Start to remove password for: ${fileName}`)
+  shell.cd(`${FilePath.tmp}/${uploadedFileData.pdfId}`)
+
+  const result = shell.exec(
+    `gs -dNOPAUSE -dBATCH -q -sDEVICE=${device} -sPDFPassword=${password} -sOutputFile=${uploadedFileData.taskType}-${fileName} ${fileName}`
+  )
+
+  if (result.code !== 0) {
+    console.error('Error: Failed to remove password')
     shell.exit(1)
   }
 
