@@ -46,13 +46,19 @@ import { LoginComponent, ProfileComponent } from '@pdfun/ui/auth'
               >
                 Resize PDF
               </a>
-
               <a
                 routerLink="/pdf-to-images"
                 routerLinkActive="active"
                 class="link"
               >
                 PDF to Images
+              </a>
+              <a
+                routerLink="/pdf-password-removal"
+                routerLinkActive="active"
+                class="link"
+              >
+                Password Removal
               </a>
             </div>
           </nav>
@@ -90,6 +96,14 @@ import { LoginComponent, ProfileComponent } from '@pdfun/ui/auth'
             class="link"
             (click)="toggleMobileMenu()"
             >PDF to Images
+          </a>
+          <a
+            routerLink="/pdf-password-removal"
+            routerLinkActive="active"
+            class="link"
+            (click)="toggleMobileMenu()"
+          >
+            Password Removal
           </a>
         </div>
       </div>
