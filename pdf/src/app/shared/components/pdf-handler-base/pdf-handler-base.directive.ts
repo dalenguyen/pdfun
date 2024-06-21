@@ -5,7 +5,7 @@ import { Storage, getDownloadURL, ref } from '@angular/fire/storage'
 import { AuthService } from '@pdfun/angular/services'
 import { Collections, TaskType, UploadedFile } from '@pdfun/domain'
 import { nanoid } from 'nanoid'
-import { FileUploadHandlerEvent } from 'primeng/fileupload'
+import { FileUpload, FileUploadHandlerEvent } from 'primeng/fileupload'
 import { EMPTY, Observable, filter, of, switchMap } from 'rxjs'
 
 export abstract class PdfHandlerBase {
@@ -44,10 +44,16 @@ export abstract class PdfHandlerBase {
         switchMap((doc) => {
           this.loading.set(false)
 
+          if (doc.taskResponse?.error) {
+            this.errorMessage.set(doc.taskResponse?.error)
+            return of(null)
+          }
+
           if (doc.taskResponse?.success === false) {
             this.errorMessage.set(
-              `Error in resizing PDF file. Please try it again.`
+              `Error in removing PDF password. Please try it again.`
             )
+
             return of(null)
           }
 
@@ -64,7 +70,7 @@ export abstract class PdfHandlerBase {
   }
 
   // place holder
-  async onUpload(event: FileUploadHandlerEvent) {
+  async onUpload(event: FileUploadHandlerEvent, fileUpload?: FileUpload) {
     //
   }
 

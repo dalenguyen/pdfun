@@ -11,3 +11,7 @@ export interface ImageConversionOption {
   resolution?: 'r200' | 'r600'
   format?: 'jpg' | 'png'
 }
+
+export interface PasswordRemovalOption {
+  device?: 'pdfwrite'
+}

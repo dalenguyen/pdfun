@@ -1,11 +1,13 @@
 export enum TaskType {
   RESIZE = 'RESIZE',
   IMAGE_CONVERSION = 'IMAGE_CONVERSION',
+  PASSWORD_REMOVAL = 'PASSWORD_REMOVAL',
 }
 
 export interface TaskResponse {
   success: boolean
   fileName: string
+  error?: string
 }
 
 export interface UploadedFile {
@@ -16,6 +18,7 @@ export interface UploadedFile {
   fileName: string
   filePath: string
   taskResponse: TaskResponse | null
+  password?: string
   pdfId: string
   uid: string
   taskType: TaskType
