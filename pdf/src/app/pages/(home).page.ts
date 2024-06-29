@@ -44,38 +44,43 @@ export const routeMeta: RouteMeta = {
         class="mb-4"
       />
 
-      @if(loading()) {
-      <div class="flex items-center mb-4">
-        <p>Your file is uploaded and processing. Please wait for a moment ;)</p>
-      </div>
-      } @if(errorMessage()) {
-      <p class="text-red-500 mb-4">{{ errorMessage() }}</p>
-      } @if(downloadUrl$ | async; as downloadUrl) {
-
-      <!-- Compare file size -->
-      @if(this.newFileSize() < this.currentFileSize()) {
-      <p class="mb-4">
-        Congratulations! Your file is reduced by
-        <strong
-          >{{
-            this.currentFileSize() - this.newFileSize() | byteSizeFormatter
-          }}!</strong
-        >
-      </p>
+      @if (loading()) {
+        <div class="flex items-center mb-4">
+          <p>
+            Your file is uploaded and processing. Please wait for a moment ;)
+          </p>
+        </div>
       }
 
-      <div class="my-4 flex flex-col gap-4 items-center">
-        <a
-          [href]="downloadUrl"
-          target="_blank"
-          class="w-[180px] inline-flex justify-evenly items-center px-4 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-        >
-          <i class="pi pi-download pr-2"></i>
-          Download PDF
-        </a>
+      @if (errorMessage()) {
+        <p class="text-red-500 mb-4">{{ errorMessage() }}</p>
+      }
 
-        <lib-buy-me-a-coffee />
-      </div>
+      @if (downloadUrl$ | async; as downloadUrl) {
+        <!-- Compare file size -->
+        @if (this.newFileSize() < this.currentFileSize()) {
+          <p class="mb-4">
+            Congratulations! Your file is reduced by
+            <strong
+              >{{
+                this.currentFileSize() - this.newFileSize() | byteSizeFormatter
+              }}!</strong
+            >
+          </p>
+        }
+
+        <div class="my-4 flex flex-col gap-4 items-center">
+          <a
+            [href]="downloadUrl"
+            target="_blank"
+            class="w-[180px] inline-flex justify-evenly items-center px-4 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          >
+            <i class="pi pi-download pr-2"></i>
+            Download PDF
+          </a>
+
+          <lib-buy-me-a-coffee />
+        </div>
       }
 
       <pdf-disclaimer class="mt-8" />
@@ -108,7 +113,7 @@ export default class HomeComponent extends PdfHandlerBase {
 
       const storageRef = ref(
         this.storage,
-        `${this.generateFilePath()}/${fileName}`
+        `${this.generateFilePath()}/${fileName}`,
       )
       const result = await uploadBytesResumable(storageRef, file)
       const { uid = 'anonymous' } =
