@@ -10,5 +10,5 @@ export const server = express()
     console.error('unhandled error', err)
   })
   .listen(8080, () =>
-    console.log(`🚀 [APP] is running on: http://localhost:8080`)
+    console.log(`🚀 [APP] is running on: http://localhost:8080`),
   )

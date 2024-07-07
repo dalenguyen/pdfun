@@ -1,0 +1,27 @@
+{
+  "name": "firebase",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/server/firebase/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/server/firebase",
+        "tsConfig": "libs/server/firebase/tsconfig.lib.json",
+        "packageJson": "libs/server/firebase/package.json",
+        "main": "libs/server/firebase/src/index.ts",
+        "assets": ["libs/server/firebase/*.md"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/server/firebase/jest.config.ts"
+      }
+    }
+  }
+}

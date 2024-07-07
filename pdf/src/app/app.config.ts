@@ -1,3 +1,4 @@
+import { provideContent, withMarkdownRenderer } from '@analogjs/content'
 import { provideFileRouter } from '@analogjs/router'
 import { provideHttpClient, withFetch } from '@angular/common/http'
 import {
@@ -18,6 +19,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideFileRouter(withComponentInputBinding()),
     provideHttpClient(withFetch()),
+    provideContent(withMarkdownRenderer()),
     provideAnimationsAsync(),
     // If Angular hasn't start yet,
     // replay the events after hydration with withEventReplay()
