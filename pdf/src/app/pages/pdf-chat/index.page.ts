@@ -1,9 +1,10 @@
 import { RouteMeta } from '@analogjs/router'
 import { CommonModule } from '@angular/common'
-import { Component } from '@angular/core'
+import { Component, inject, signal, WritableSignal } from '@angular/core'
 import { User } from '@angular/fire/auth'
 import { setDoc } from '@angular/fire/firestore'
 import { ref, uploadBytesResumable } from '@angular/fire/storage'
+import { Router } from '@angular/router'
 import { TaskType, UploadedFile } from '@pdfun/domain'
 import { BuyMeACoffeeComponent } from '@pdfun/ui/common'
 import { nanoid } from 'nanoid'
@@ -11,91 +12,57 @@ import { ButtonModule } from 'primeng/button'
 import { FileUploadHandlerEvent, FileUploadModule } from 'primeng/fileupload'
 import { ProgressBarModule } from 'primeng/progressbar'
 import { ToastModule } from 'primeng/toast'
-import { DisclaimerComponent } from '../shared/components/disclaimer/disclaimer.component'
-import { PdfHandlerBase } from '../shared/components/pdf-handler-base/pdf-handler-base.directive'
-import { ShoutOutComponent } from '../shared/components/shout-out/shout-out.component'
-import { ByteSizeFormatter } from '../shared/pipes'
-import { getNextDays } from '../shared/utils'
+import { DisclaimerComponent } from '../../shared/components/disclaimer/disclaimer.component'
+import { PdfHandlerBase } from '../../shared/components/pdf-handler-base/pdf-handler-base.directive'
+import { ShoutOutComponent } from '../../shared/components/shout-out/shout-out.component'
+import { getNextDays } from '../../shared/utils'
 
 export const routeMeta: RouteMeta = {
-  title: 'PDFun - Resize',
+  title: 'PDFun - AI Chat',
 }
 
 @Component({
-  selector: 'pdf-home',
+  selector: 'pdf-chat',
   standalone: true,
-  template: `
-    <p-toast />
-
-    <div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-md">
-      <h1 class="text-2xl font-semibold mb-4">Resize your PDF file</h1>
-
-      <pdf-shout-out [type]="TaskType.RESIZE" />
-
-      <p-fileUpload
-        mode="advanced"
-        chooseLabel="Choose a PDF file"
-        accept="application/pdf"
-        name="myfile"
-        maxFileSize="10000000"
-        fileLimit="1"
-        uploadLabel="Upload & Resize"
-        (uploadHandler)="onUpload($event)"
-        [customUpload]="true"
-        class="mb-4"
-      />
-
-      @if (loading()) {
-        <p-progressBar mode="indeterminate" [style]="{ height: '6px' }" />
-      }
-
-      @if (errorMessage()) {
-        <p class="text-red-500 mb-4">{{ errorMessage() }}</p>
-      }
-
-      @if (downloadUrl$ | async; as downloadUrl) {
-        <!-- Compare file size -->
-        @if (this.newFileSize() < this.currentFileSize()) {
-          <p class="mb-4">
-            Congratulations! Your file is reduced by
-            <strong
-              >{{
-                this.currentFileSize() - this.newFileSize() | byteSizeFormatter
-              }}!</strong
-            >
-          </p>
-        }
-
-        <div class="my-4 flex flex-col gap-4 items-center">
-          <a
-            [href]="downloadUrl"
-            target="_blank"
-            class="w-[180px] inline-flex justify-evenly items-center px-4 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-          >
-            <i class="pi pi-download pr-2"></i>
-            Download PDF
-          </a>
-
-          <lib-buy-me-a-coffee />
-        </div>
-      }
-
-      <pdf-disclaimer class="mt-8" />
-    </div>
-  `,
   imports: [
     CommonModule,
     ButtonModule,
-    FileUploadModule,
     ToastModule,
-    BuyMeACoffeeComponent,
     ShoutOutComponent,
+    FileUploadModule,
+    BuyMeACoffeeComponent,
     DisclaimerComponent,
-    ByteSizeFormatter,
     ProgressBarModule,
   ],
+  template: `
+    <p-toast />
+
+    <pdf-shout-out [type]="TaskType.PDF_CHAT" />
+
+    <p-fileUpload
+      mode="advanced"
+      chooseLabel="Choose a PDF file"
+      accept="application/pdf"
+      name="myfile"
+      maxFileSize="5000000"
+      fileLimit="1"
+      uploadLabel="Upload & Chat"
+      (uploadHandler)="onUpload($event)"
+      [customUpload]="true"
+      class="mb-4"
+    />
+
+    @if (loading()) {
+      <p-progressBar mode="indeterminate" [style]="{ height: '6px' }" />
+    }
+
+    <pdf-disclaimer class="mt-8" />
+  `,
 })
-export default class HomeComponent extends PdfHandlerBase {
+export default class PdfChatComponent extends PdfHandlerBase {
+  private router = inject(Router)
+  override allowDownloadFile: WritableSignal<boolean> = signal(false)
+
   override async onUpload(event: FileUploadHandlerEvent) {
     // set a new document Id if users want to retry without reloading the page
     this.currentID.set(nanoid())
@@ -129,7 +96,7 @@ export default class HomeComponent extends PdfHandlerBase {
           updatedAt: result.metadata.updated,
           pdfId: this.currentID(),
           uid,
-          taskType: TaskType.RESIZE,
+          taskType: TaskType.PDF_CHAT,
           // reset resize file name
           taskResponse: null,
           // Document will be deleted in 1 day
@@ -137,6 +104,13 @@ export default class HomeComponent extends PdfHandlerBase {
         }
 
         await setDoc(this.docRef(), uploadFileData)
+
+        this.router.navigate([`pdf-chat/${this.currentID()}`], {
+          state: {
+            filePath: this.generateFilePath(),
+            fileName: file.name,
+          },
+        })
       } else {
         this.loading.set(false)
         this.errorMessage.set('Failed to upload file. Please try again later.')

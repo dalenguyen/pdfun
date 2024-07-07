@@ -1,15 +1,10 @@
 import { FilePath, TaskResponse, UploadedFile } from '@pdfun/domain'
-import {
-  downloadFile,
-  getFileSize,
-  resizeFile,
-  updateDocument,
-  uploadFile,
-} from '../services'
+import { updateDocument } from '@pdfun/firebase'
+import { downloadFile, getFileSize, resizeFile, uploadFile } from '../services'
 
 export const handlePDFResize = async (
   uploadedFileData: UploadedFile,
-  documentPath: string
+  documentPath: string,
 ) => {
   await downloadFile(uploadedFileData)
 
@@ -31,7 +26,7 @@ export const handlePDFResize = async (
   }
 
   const newFileSize = await getFileSize(
-    `${FilePath.tmp}/${uploadedFileData.pdfId}/${uploadedFileData.taskType}-${uploadedFileData.fileName}`
+    `${FilePath.tmp}/${uploadedFileData.pdfId}/${uploadedFileData.taskType}-${uploadedFileData.fileName}`,
   )
 
   await updateDocument(documentPath, {

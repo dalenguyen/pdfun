@@ -16,6 +16,8 @@ export abstract class PdfHandlerBase {
   currentFileSize = signal(0)
   newFileSize = signal(0)
 
+  allowDownloadFile = signal(true)
+
   // TODO: move storage & firestore to separate services
   protected readonly storage: Storage = inject(Storage)
   private readonly firestore: Firestore = inject(Firestore)
@@ -39,33 +41,35 @@ export abstract class PdfHandlerBase {
   // Make sure that the downloadURL will be trigger correctly locally
   constructor() {
     effect(() => {
-      this.downloadUrl$ = this.pdf().pipe(
-        filter((doc) => Object.keys(doc?.taskResponse ?? {}).length > 0),
-        switchMap((doc) => {
-          this.loading.set(false)
+      if (this.allowDownloadFile()) {
+        this.downloadUrl$ = this.pdf().pipe(
+          filter((doc) => Object.keys(doc?.taskResponse ?? {}).length > 0),
+          switchMap((doc) => {
+            this.loading.set(false)
 
-          if (doc.taskResponse?.error) {
-            this.errorMessage.set(doc.taskResponse?.error)
-            return of(null)
-          }
+            if (doc.taskResponse?.error) {
+              this.errorMessage.set(doc.taskResponse?.error)
+              return of(null)
+            }
 
-          if (doc.taskResponse?.success === false) {
-            this.errorMessage.set(
-              `Error in removing PDF password. Please try it again.`
+            if (doc.taskResponse?.success === false) {
+              this.errorMessage.set(
+                `Error in processing PDF file. Please try it again.`,
+              )
+
+              return of(null)
+            }
+
+            if (doc.newFileSize) {
+              this.newFileSize.set(doc.newFileSize)
+            }
+
+            return this.getDownloadLink(
+              `${doc.filePath}/${doc.taskResponse?.fileName}`,
             )
-
-            return of(null)
-          }
-
-          if (doc.newFileSize) {
-            this.newFileSize.set(doc.newFileSize)
-          }
-
-          return this.getDownloadLink(
-            `${doc.filePath}/${doc.taskResponse?.fileName}`
-          )
-        })
-      )
+          }),
+        )
+      }
     })
   }
 

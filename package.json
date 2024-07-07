@@ -42,6 +42,7 @@
     "mermaid": "^10.2.4",
     "nanoid": "^5.0.7",
     "ngx-cookie-service": "^18.0.0",
+    "openai": "^4.52.3",
     "primeicons": "^7.0.0",
     "primeng": "17.18.0",
     "prismjs": "^1.29.0",
