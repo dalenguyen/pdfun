@@ -3,12 +3,12 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // public collection is publiclly accessible
+    // public collection is publicly accessible
     match /public/{publicId} {
       allow read, write: if true;
     }
 
-    // anlytics - only allow users to read
+    // analytics - only allow users to read
     // TODO: move to API to utilize cache
     match /analytics/{analyticId} {
       allow read: if true;

@@ -1,6 +1,7 @@
+import { getDocument } from '@pdfun/firebase'
 import type { Request, Response } from 'express'
-import { getDocument } from '../services'
 import { addAnalytics } from './analytics.handler'
+import { handlePDFChat } from './pdf-chat.handler'
 import { handlePDFPasswordRemoval } from './pdf-password-removal.handler'
 import { handlePDFResize } from './pdf-resize.handler'
 import { handlePDFToImages } from './pdf-to-images.handler'
@@ -30,25 +31,28 @@ export const handler = async (req: Request, res: Response) => {
   switch (uploadedFileData.taskType) {
     case 'RESIZE':
       await handlePDFResize(uploadedFileData, documentPath)
-      await addAnalytics(uploadedFileData)
+
       break
 
     case 'IMAGE_CONVERSION':
       await handlePDFToImages(uploadedFileData, documentPath)
-      await addAnalytics(uploadedFileData)
       break
 
     case 'PASSWORD_REMOVAL':
       await handlePDFPasswordRemoval(uploadedFileData, documentPath)
-      await addAnalytics(uploadedFileData)
+      break
+
+    case 'PDF_CHAT':
+      await handlePDFChat(uploadedFileData, documentPath)
       break
 
     default:
       console.log(`${uploadedFileData.taskType} has no handler!`)
+      return res.json({ success: false })
       break
   }
 
+  await addAnalytics(uploadedFileData)
   console.log(`Finishing processing PDF file!`)
-
-  return res.json({ success: 'true' })
+  return res.json({ success: true })
 }

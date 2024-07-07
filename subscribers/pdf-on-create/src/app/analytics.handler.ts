@@ -1,5 +1,5 @@
 import { Analytic, UploadedFile } from '@pdfun/domain'
-import { addDocument } from '../services'
+import { addDocument } from '@pdfun/firebase'
 
 export const addAnalytics = async (uploadedFile: UploadedFile) => {
   await addDocument<Analytic>('analytics', {

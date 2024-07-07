@@ -1,7 +1,10 @@
+import type { Assistant } from 'openai/resources/beta/assistants'
+
 export enum TaskType {
   RESIZE = 'RESIZE',
   IMAGE_CONVERSION = 'IMAGE_CONVERSION',
   PASSWORD_REMOVAL = 'PASSWORD_REMOVAL',
+  PDF_CHAT = 'PDF_CHAT',
 }
 
 export interface TaskResponse {
@@ -17,7 +20,8 @@ export interface UploadedFile {
   expiresOn: Date
   fileName: string
   filePath: string
-  taskResponse: TaskResponse | null
+  taskResponse?: TaskResponse | null
+  assistant?: Assistant
   password?: string
   pdfId: string
   uid: string

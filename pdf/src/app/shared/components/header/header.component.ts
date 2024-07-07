@@ -47,6 +47,14 @@ import { LoginComponent, ProfileComponent } from '@pdfun/ui/auth'
                 Resize PDF
               </a>
               <a
+                routerLink="/pdf-chat"
+                [routerLinkActiveOptions]="{ exact: true }"
+                routerLinkActive="active"
+                class="link"
+              >
+                AI Chat
+              </a>
+              <a
                 routerLink="/pdf-to-images"
                 routerLinkActive="active"
                 class="link"
@@ -65,13 +73,13 @@ import { LoginComponent, ProfileComponent } from '@pdfun/ui/auth'
         </div>
         <div class="flex items-center">
           @defer (on timer(200ms)) {
-          <div class="flex items-center gap-4">
-            @if(authService.isLoggedIn()) {
-            <lib-profile />
-            } @else {
-            <lib-login />
-            }
-          </div>
+            <div class="flex items-center gap-4">
+              @if (authService.isLoggedIn()) {
+                <lib-profile />
+              } @else {
+                <lib-login />
+              }
+            </div>
           }
         </div>
       </div>
@@ -88,6 +96,15 @@ import { LoginComponent, ProfileComponent } from '@pdfun/ui/auth'
             (click)="toggleMobileMenu()"
           >
             Resize PDF
+          </a>
+
+          <a
+            routerLink="/pdf-chat"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLinkActive="active"
+            class="link"
+          >
+            AI Chat
           </a>
 
           <a

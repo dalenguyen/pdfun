@@ -1,14 +1,10 @@
 import { TaskResponse, UploadedFile } from '@pdfun/domain'
-import {
-  downloadFile,
-  removePassword,
-  updateDocument,
-  uploadFile,
-} from '../services'
+import { updateDocument } from '@pdfun/firebase'
+import { downloadFile, removePassword, uploadFile } from '../services'
 
 export const handlePDFPasswordRemoval = async (
   uploadedFileData: UploadedFile,
-  documentPath: string
+  documentPath: string,
 ) => {
   await downloadFile(uploadedFileData)
 

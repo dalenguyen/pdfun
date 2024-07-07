@@ -1,14 +1,10 @@
 import { TaskResponse, UploadedFile } from '@pdfun/domain'
-import {
-  convertToImages,
-  downloadFile,
-  updateDocument,
-  uploadFile,
-} from '../services'
+import { updateDocument } from '@pdfun/firebase'
+import { convertToImages, downloadFile, uploadFile } from '../services'
 
 export const handlePDFToImages = async (
   uploadedFileData: UploadedFile,
-  documentPath: string
+  documentPath: string,
 ) => {
   await downloadFile(uploadedFileData)
 

@@ -15,10 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@pdfun/ai": ["libs/server/ai/src/index.ts"],
       "@pdfun/angular/firebase": ["libs/angular/firebase/src/index.ts"],
       "@pdfun/angular/guards": ["libs/angular/guards/src/index.ts"],
       "@pdfun/angular/services": ["libs/angular/services/src/index.ts"],
       "@pdfun/domain": ["libs/domain/src/index.ts"],
+      "@pdfun/firebase": ["libs/server/firebase/src/index.ts"],
       "@pdfun/ui/auth": ["libs/ui/auth/src/index.ts"],
       "@pdfun/ui/common": ["libs/ui/common/src/index.ts"]
     }
