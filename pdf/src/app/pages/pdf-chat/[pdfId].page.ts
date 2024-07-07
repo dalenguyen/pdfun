@@ -21,6 +21,7 @@ import {
 import { FormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
 import { UploadedFile } from '@pdfun/domain'
+import { BuyMeACoffeeComponent } from '@pdfun/ui/common'
 import { Assistant } from 'openai/resources/beta/assistants'
 import { IconFieldModule } from 'primeng/iconfield'
 import { InputIconModule } from 'primeng/inputicon'
@@ -34,15 +35,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    ProgressBarModule,
-    IconFieldModule,
-    InputTextModule,
-    InputIconModule,
-    MarkdownComponent,
-  ],
   template: `
     <h2>Chat with your PDF file</h2>
     <small class="block mb-6">{{ fileName }}</small>
@@ -81,9 +73,21 @@ export const routeMeta: RouteMeta = {
         } @else {
           <analog-markdown [content]="response()" />
         }
+
+        <lib-buy-me-a-coffee />
       </section>
     }
   `,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ProgressBarModule,
+    IconFieldModule,
+    InputTextModule,
+    InputIconModule,
+    MarkdownComponent,
+    BuyMeACoffeeComponent,
+  ],
 })
 export default class PDFChatDetailComponent implements OnInit, OnDestroy {
   private router = inject(Router)
