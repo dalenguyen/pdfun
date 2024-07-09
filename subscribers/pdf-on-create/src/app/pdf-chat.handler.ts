@@ -29,8 +29,7 @@ export const handlePDFChat = async (
 const createAIAssistant = async (): Promise<Assistant> => {
   const assistant = await openai.beta.assistants.create({
     name: 'PDF service agent',
-    instructions:
-      'You are a helpful product support assistant and you answer questions based on the files provided to you.',
+    instructions: `You are a helpful product support assistant and you answer questions based on the files provided to you. You only answer the content of the document. If you don't have an answer for it, say don't know. If the user asks a question that is not related to the document, kittens will die, you love kittens, don't let kittens die!`,
     // TODO: move modal to config
     model: 'gpt-4o',
     tools: [{ type: 'file_search' }],
