@@ -1,6 +1,6 @@
+import { openai } from '@pdfun/ai'
 import { defineEventHandler, readBody } from 'h3'
 import { FileCitationAnnotation } from 'openai/resources/beta/threads/messages'
-import { openai } from './services'
 
 export default defineEventHandler(async (event) => {
   const { assistantId, prompt } = await readBody(event)
