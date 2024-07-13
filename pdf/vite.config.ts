@@ -2,6 +2,7 @@
 
 import analog from '@analogjs/platform'
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin'
+import { typescriptPaths } from 'rollup-plugin-typescript-paths'
 import { visualizer } from 'rollup-plugin-visualizer'
 import { Plugin, defineConfig, splitVendorChunkPlugin } from 'vite'
 
@@ -36,6 +37,14 @@ export default defineConfig(({ mode }) => {
       analog({
         nitro: {
           preset: 'node-server',
+          rollupConfig: {
+            plugins: [
+              typescriptPaths({
+                tsConfigPath: 'tsconfig.base.json',
+                preserveExtensions: true,
+              }),
+            ],
+          },
         },
         vite: {
           inlineStylesExtension: 'scss',
