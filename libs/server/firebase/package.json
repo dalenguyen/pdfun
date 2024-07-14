@@ -1,4 +1,9 @@
 {
   "name": "@pdfun/firebase",
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "dependencies": {
+    "@google-cloud/firestore": "^7.7.0",
+    "@pdfun/domain": "0.0.1",
+    "tslib": "^2.4.0"
+  }
 }

@@ -9,6 +9,7 @@ import { BuyMeACoffeeComponent } from '@pdfun/ui/common'
 import { nanoid } from 'nanoid'
 import { ButtonModule } from 'primeng/button'
 import { FileUploadHandlerEvent, FileUploadModule } from 'primeng/fileupload'
+import { ProgressBarModule } from 'primeng/progressbar'
 import { ToastModule } from 'primeng/toast'
 import { DisclaimerComponent } from '../shared/components/disclaimer/disclaimer.component'
 import { PdfHandlerBase } from '../shared/components/pdf-handler-base/pdf-handler-base.directive'
@@ -30,6 +31,7 @@ export const routeMeta: RouteMeta = {
     FileUploadModule,
     BuyMeACoffeeComponent,
     DisclaimerComponent,
+    ProgressBarModule,
   ],
   template: `
     <p-toast />
@@ -54,29 +56,28 @@ export const routeMeta: RouteMeta = {
         class="mb-4"
       />
 
-      @if(loading()) {
-      <div class="flex items-center mb-4">
-        <div class="mr-2">
-          <i class="fa fa-spinner fa-spin text-blue-500"></i>
+      @if (loading()) {
+        <p-progressBar mode="indeterminate" [style]="{ height: '6px' }" />
+      }
+
+      @if (errorMessage()) {
+        <p class="text-red-500 mb-4">{{ errorMessage() }}</p>
+      }
+
+      @let downloadUrl = downloadUrl$ | async;
+      @if (downloadUrl) {
+        <div class="my-4 flex flex-col gap-4 items-center">
+          <a
+            [href]="downloadUrl"
+            target="_blank"
+            class="w-[200px] inline-flex justify-evenly items-center px-4 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          >
+            <i class="pi pi-download pr-2"></i>
+            Download Images
+          </a>
+
+          <lib-buy-me-a-coffee />
         </div>
-        <span
-          >Your file is uploaded and processing. Please wait for a moment.</span
-        >
-      </div>
-      } @if(errorMessage()) {
-      <p class="text-red-500 mb-4">{{ errorMessage() }}</p>
-      } @if(downloadUrl$ | async; as downloadUrl) {
-
-      <a
-        [href]="downloadUrl"
-        target="_blank"
-        class="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 mb-4"
-      >
-        <i class="pi pi-download pr-2"></i>
-        Download Images
-      </a>
-
-      <lib-buy-me-a-coffee />
       }
 
       <pdf-disclaimer class="mt-8" />
@@ -99,7 +100,7 @@ export default class PdfToImagesComponent extends PdfHandlerBase {
 
       const storageRef = ref(
         this.storage,
-        `${this.generateFilePath()}/${fileName}`
+        `${this.generateFilePath()}/${fileName}`,
       )
       const result = await uploadBytesResumable(storageRef, file)
       const { uid = 'anonymous' } =
