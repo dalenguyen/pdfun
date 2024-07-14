@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common'
 import { HttpClient } from '@angular/common/http'
 import {
   Component,
-  OnDestroy,
   OnInit,
   WritableSignal,
   inject,
@@ -27,7 +26,7 @@ import { IconFieldModule } from 'primeng/iconfield'
 import { InputIconModule } from 'primeng/inputicon'
 import { InputTextModule } from 'primeng/inputtext'
 import { ProgressBarModule } from 'primeng/progressbar'
-import { Subject, lastValueFrom } from 'rxjs'
+import { lastValueFrom } from 'rxjs'
 
 export const routeMeta: RouteMeta = {
   title: 'PDFun - AI Chat',
@@ -43,14 +42,15 @@ export const routeMeta: RouteMeta = {
       <p-progressBar mode="indeterminate" [style]="{ height: '6px' }" />
     }
 
-    @if (assistant()) {
+    @let assistantId = assistant()?.id;
+    @if (assistantId) {
       <section class="max-w-3xl m-auto">
         <div>
           <p-iconField iconPosition="right">
             <p-inputIcon
               styleClass="pi pi-search"
               class="cursor-pointer"
-              (click)="sendChat(assistant()!.id)"
+              (click)="sendChat(assistantId)"
             />
 
             <input
@@ -58,13 +58,13 @@ export const routeMeta: RouteMeta = {
               class="w-full mb-2"
               pInputText
               [(ngModel)]="prompt"
-              (keyup.enter)="sendChat(assistant()!.id)"
+              (keyup.enter)="sendChat(assistantId)"
               placeholder="Help me to summary the content"
             />
           </p-iconField>
         </div>
 
-        <small class="italic">
+        <small class="italic block mb-6">
           You can start asking any questions that relate to your PDF file.
         </small>
 
@@ -89,7 +89,7 @@ export const routeMeta: RouteMeta = {
     BuyMeACoffeeComponent,
   ],
 })
-export default class PDFChatDetailComponent implements OnInit, OnDestroy {
+export default class PDFChatDetailComponent implements OnInit {
   private router = inject(Router)
   private http = inject(HttpClient)
 
@@ -110,10 +110,6 @@ export default class PDFChatDetailComponent implements OnInit, OnDestroy {
   private readonly firestore: Firestore = inject(Firestore)
 
   assistant: WritableSignal<undefined | Assistant> = signal(undefined)
-
-  private stopTimer$ = new Subject()
-  // Polling interval
-  INTERVAL = 3000
 
   async ngOnInit(): Promise<void> {
     const docRef = doc(this.firestore, `${this.filePath}/${this.pdfId()}`)
@@ -150,9 +146,5 @@ export default class PDFChatDetailComponent implements OnInit, OnDestroy {
     this.responseLoading.set(false)
     this.prompt.set('')
     this.response.set(result.response)
-  }
-
-  ngOnDestroy() {
-    this.stopTimer$.next(true)
   }
 }
