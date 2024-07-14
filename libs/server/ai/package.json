@@ -1,4 +1,8 @@
 {
   "name": "@pdfun/ai",
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "dependencies": {
+    "openai": "^4.52.3",
+    "tslib": "^2.4.0"
+  }
 }
