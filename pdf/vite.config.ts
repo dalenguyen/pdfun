@@ -35,6 +35,19 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       analog({
+        content: {
+          highlighter: 'shiki',
+          shikiOptions: {
+            highlight: {
+              // alternate theme
+              theme: 'ayu-dark',
+            },
+            highlighter: {
+              // add more languages
+              additionalLangs: ['mermaid'],
+            },
+          },
+        },
         nitro: {
           preset: 'node-server',
           rollupConfig: {
