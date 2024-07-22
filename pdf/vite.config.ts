@@ -36,16 +36,9 @@ export default defineConfig(({ mode }) => {
     plugins: [
       analog({
         content: {
-          highlighter: 'shiki',
-          shikiOptions: {
-            highlight: {
-              // alternate theme
-              theme: 'ayu-dark',
-            },
-            highlighter: {
-              // add more languages
-              additionalLangs: ['mermaid'],
-            },
+          highlighter: 'prism',
+          prismOptions: {
+            additionalLangs: ['prism-diff'],
           },
         },
         nitro: {
