@@ -25,6 +25,10 @@
 @import 'primeng/resources/primeng.css';
 @import 'primeicons/primeicons.css';
 
+// Code highlight
+@import 'prismjs/themes/prism.css';
+@import 'prismjs/plugins/diff-highlight/prism-diff-highlight.css';
+
 :root {
   --font-family: 'Raleway', sans-serif;
 }

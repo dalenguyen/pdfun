@@ -35,6 +35,12 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       analog({
+        content: {
+          highlighter: 'prism',
+          prismOptions: {
+            additionalLangs: ['prism-diff'],
+          },
+        },
         nitro: {
           preset: 'node-server',
           rollupConfig: {
