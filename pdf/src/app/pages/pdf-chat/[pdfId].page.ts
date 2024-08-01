@@ -35,48 +35,50 @@ export const routeMeta: RouteMeta = {
 @Component({
   standalone: true,
   template: `
-    <h2>Chat with your PDF file</h2>
-    <small class="block mb-6">{{ fileName }}</small>
+    <div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-md">
+      <h2>Chat with your PDF file</h2>
+      <small class="block mb-6">{{ fileName }}</small>
 
-    @if (loading()) {
-      <p-progressBar mode="indeterminate" [style]="{ height: '6px' }" />
-    }
+      @if (loading()) {
+        <p-progressBar mode="indeterminate" [style]="{ height: '6px' }" />
+      }
 
-    @let assistantId = assistant()?.id;
-    @if (assistantId) {
-      <section class="max-w-3xl m-auto">
-        <div>
-          <p-iconField iconPosition="right">
-            <p-inputIcon
-              styleClass="pi pi-search"
-              class="cursor-pointer"
-              (click)="sendChat(assistantId)"
-            />
+      @let assistantId = assistant()?.id;
+      @if (assistantId) {
+        <section class="max-w-3xl m-auto">
+          <div>
+            <p-iconField iconPosition="right">
+              <p-inputIcon
+                styleClass="pi pi-search"
+                class="cursor-pointer"
+                (click)="sendChat(assistantId)"
+              />
 
-            <input
-              type="text"
-              class="w-full mb-2"
-              pInputText
-              [(ngModel)]="prompt"
-              (keyup.enter)="sendChat(assistantId)"
-              placeholder="Help me to summary the content"
-            />
-          </p-iconField>
-        </div>
+              <input
+                type="text"
+                class="w-full mb-2"
+                pInputText
+                [(ngModel)]="prompt"
+                (keyup.enter)="sendChat(assistantId)"
+                placeholder="Help me to summary the content"
+              />
+            </p-iconField>
+          </div>
 
-        <small class="italic block mb-6">
-          You can start asking any questions that relate to your PDF file.
-        </small>
+          <small class="italic block mb-6">
+            You can start asking any questions that relate to your PDF file.
+          </small>
 
-        @if (responseLoading()) {
-          <p-progressBar mode="indeterminate" [style]="{ height: '6px' }" />
-        } @else {
-          <analog-markdown [content]="response()" />
-        }
+          @if (responseLoading()) {
+            <p-progressBar mode="indeterminate" [style]="{ height: '6px' }" />
+          } @else {
+            <analog-markdown [content]="response()" />
+          }
 
-        <lib-buy-me-a-coffee />
-      </section>
-    }
+          <lib-buy-me-a-coffee />
+        </section>
+      }
+    </div>
   `,
   imports: [
     CommonModule,

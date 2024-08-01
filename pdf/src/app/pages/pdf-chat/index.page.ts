@@ -36,27 +36,28 @@ export const routeMeta: RouteMeta = {
   ],
   template: `
     <p-toast />
+    <div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-md">
+      <pdf-shout-out [type]="TaskType.PDF_CHAT" />
 
-    <pdf-shout-out [type]="TaskType.PDF_CHAT" />
+      <p-fileUpload
+        mode="advanced"
+        chooseLabel="Choose a PDF file"
+        accept="application/pdf"
+        name="myfile"
+        maxFileSize="5000000"
+        fileLimit="1"
+        uploadLabel="Upload & Chat"
+        (uploadHandler)="onUpload($event)"
+        [customUpload]="true"
+        class="mb-4"
+      />
 
-    <p-fileUpload
-      mode="advanced"
-      chooseLabel="Choose a PDF file"
-      accept="application/pdf"
-      name="myfile"
-      maxFileSize="5000000"
-      fileLimit="1"
-      uploadLabel="Upload & Chat"
-      (uploadHandler)="onUpload($event)"
-      [customUpload]="true"
-      class="mb-4"
-    />
+      @if (loading()) {
+        <p-progressBar mode="indeterminate" [style]="{ height: '6px' }" />
+      }
 
-    @if (loading()) {
-      <p-progressBar mode="indeterminate" [style]="{ height: '6px' }" />
-    }
-
-    <pdf-disclaimer class="mt-8" />
+      <pdf-disclaimer class="mt-8" />
+    </div>
   `,
 })
 export default class PdfChatComponent extends PdfHandlerBase {
