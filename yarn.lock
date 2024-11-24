@@ -20,42 +20,42 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
-"@analogjs/content@1.6.4", "@analogjs/content@^1.6.4":
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/@analogjs/content/-/content-1.6.4.tgz#e00e9a1bd76d483a02e8027e85732b47ffc91e1e"
-  integrity sha512-gE+B4LpYMklBd9DupLfTSTghUvhCrPXCZbcuKgY77Wb38MPyAeaNEgkns3+r8SF9kMp5NIcLQSMet81qH1obEQ==
+"@analogjs/content@1.9.4":
+  version "1.9.4"
+  resolved "https://registry.yarnpkg.com/@analogjs/content/-/content-1.9.4.tgz#77ca96b6146a85778a7635a4d53923cc06559ec0"
+  integrity sha512-hT6ishz++YXqc1OwlyplAYKLCTi+uyBVI9nmWkP5nnE/ruk/s89C4P+zJZaGunB56kvQgOh0jyZEMmigkv0ddg==
   dependencies:
     tslib "^2.3.0"
 
-"@analogjs/platform@1.6.4":
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/@analogjs/platform/-/platform-1.6.4.tgz#d365a91fab87eab2a9e14df0452f5d307fc7ced3"
-  integrity sha512-DNZefUVGjdJbkmX3jXeAPix4PRDy1FfWk8iNFEwxSe28BVTgYzr3SMqGcGwsIWExE1bmiAFPxNwweaE/NyzK1Q==
+"@analogjs/platform@1.9.4":
+  version "1.9.4"
+  resolved "https://registry.yarnpkg.com/@analogjs/platform/-/platform-1.9.4.tgz#ecc836d9228fa08dc847cc551a1e5dbe338fd018"
+  integrity sha512-e/5/1kfkv5JyFnHisppdM5gvdkYGlS+20PQBHtm3OMWtc2mJDT+Zq1WwA1Sg9JTZEGWiRUp/3AGhgvHX99DNiA==
   dependencies:
-    "@analogjs/vite-plugin-angular" "^1.6.4"
-    "@analogjs/vite-plugin-nitro" "^1.6.4"
+    "@analogjs/vite-plugin-angular" "^1.9.4"
+    "@analogjs/vite-plugin-nitro" "^1.9.4"
     nitropack "^2.9.0"
+    vitefu "^0.2.5"
 
-"@analogjs/router@1.6.4":
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/@analogjs/router/-/router-1.6.4.tgz#c743400edb30e38f5e28675e14aa6ee3368ec00d"
-  integrity sha512-mrfxLVpauBljUHaZhsyO6/saCrxLSOh/kV3v5UO/s8mladtEEk9VxeDxnqMZbn0CKUuVPrbDtk6/Q8/UfTaoJQ==
+"@analogjs/router@1.9.4":
+  version "1.9.4"
+  resolved "https://registry.yarnpkg.com/@analogjs/router/-/router-1.9.4.tgz#5eab8b7d358830b11b05c383961fa7aa7279550e"
+  integrity sha512-7PrpOsy35g1fd1bAEH5jCG3ul/rIk1d7QcXBTu7aTkkOXFLMVh/tP2W3XsU9z00L1KTsYJ10fQJGBj+OwzhN5w==
   dependencies:
     tslib "^2.0.0"
-  optionalDependencies:
-    "@analogjs/content" "^1.6.4"
 
-"@analogjs/vite-plugin-angular@1.6.4", "@analogjs/vite-plugin-angular@^1.6.4":
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/@analogjs/vite-plugin-angular/-/vite-plugin-angular-1.6.4.tgz#b32e81acd2296e16785969545d9d9ff5215919f3"
-  integrity sha512-rGIGuhhSQbDN+8hJO39xKiStxX8UyAdlpeP1HsMFZOgoA92zKo+Wxkz7clBer1SqA6kQX7J6uZjAQRhi0tYepg==
+"@analogjs/vite-plugin-angular@1.9.4", "@analogjs/vite-plugin-angular@^1.9.4":
+  version "1.9.4"
+  resolved "https://registry.yarnpkg.com/@analogjs/vite-plugin-angular/-/vite-plugin-angular-1.9.4.tgz#2932c7df30dc32f9cb03744debad8413882d1e9d"
+  integrity sha512-H7U96uo51ZO53sRuHxqCjbjmPWWGGcgk++Gge38tsmQz39E1CftOpHkc7SrAXFP3L8mzs0XSaKH2UR9VU8s+Tg==
   dependencies:
     ts-morph "^21.0.0"
+    vfile "^6.0.3"
 
-"@analogjs/vite-plugin-nitro@^1.6.4":
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/@analogjs/vite-plugin-nitro/-/vite-plugin-nitro-1.6.4.tgz#e7e031714bd666c1f9b938b89c8b8bb37224dfea"
-  integrity sha512-rpjIyTMQmjgsOtQDufZYvZsMa0DV6um1vPt31uwNCVoknhVb7VVCkzIZhXloT7XDZxh7tFF2krU/y0gE0awzHQ==
+"@analogjs/vite-plugin-nitro@^1.9.4":
+  version "1.9.4"
+  resolved "https://registry.yarnpkg.com/@analogjs/vite-plugin-nitro/-/vite-plugin-nitro-1.9.4.tgz#e387c76462cbe8e25d13b6d29227f5119fac6c7a"
+  integrity sha512-YdH2tTzmg/43/MqewSKFpRConMOUIYpFHAZtgp00/x1JOWbMYNjQOZlKkmWJwbVqKN7FPrmWYw/BD6tGNMlUFw==
   dependencies:
     esbuild "^0.20.1"
     nitropack "^2.9.0"
@@ -6131,6 +6131,11 @@
   version "2.0.10"
   resolved "https://registry.yarnpkg.com/@types/unist/-/unist-2.0.10.tgz#04ffa7f406ab628f7f7e97ca23e290cd8ab15efc"
   integrity sha512-IfYcSBWE3hLpBg8+X2SEa8LVkJdJEkT2Ese2aaLs3ptGdVtABxndrMaxuFlQ1qdFf9Q5rDvDpxI3WwgvKFAsQA==
+
+"@types/unist@^3.0.0":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@types/unist/-/unist-3.0.3.tgz#acaab0f919ce69cce629c2d4ed2eb4adc1b6c20c"
+  integrity sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==
 
 "@types/wrap-ansi@^3.0.0":
   version "3.0.0"
@@ -16488,6 +16493,13 @@ unist-util-stringify-position@^3.0.0:
   dependencies:
     "@types/unist" "^2.0.0"
 
+unist-util-stringify-position@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/unist-util-stringify-position/-/unist-util-stringify-position-4.0.0.tgz#449c6e21a880e0855bf5aabadeb3a740314abac2"
+  integrity sha512-0ASV06AAoKCDkS2+xw5RXJywruurpbC4JZSm7nr7MOt1ojAzvyyaO+UxZf18j8FCF6kmzCZKcAgN/yu2gm2XgQ==
+  dependencies:
+    "@types/unist" "^3.0.0"
+
 universalify@^0.1.0:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/universalify/-/universalify-0.1.2.tgz#b646f69be3942dabcecc9d6639c80dc105efaa66"
@@ -16665,6 +16677,22 @@ vary@^1, vary@^1.1.2, vary@~1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==
 
+vfile-message@^4.0.0:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/vfile-message/-/vfile-message-4.0.2.tgz#c883c9f677c72c166362fd635f21fc165a7d1181"
+  integrity sha512-jRDZ1IMLttGj41KcZvlrYAaI3CfqpLpfpf+Mfig13viT6NKvRzWZ+lXz0Y5D60w6uJIBAOGq9mSHf0gktF0duw==
+  dependencies:
+    "@types/unist" "^3.0.0"
+    unist-util-stringify-position "^4.0.0"
+
+vfile@^6.0.3:
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/vfile/-/vfile-6.0.3.tgz#3652ab1c496531852bf55a6bac57af981ebc38ab"
+  integrity sha512-KzIbH/9tXat2u30jf+smMwFCsno4wHVdNmzFyL+T/L3UGqqk6JKfVqOFOZEpZSHADH1k40ab6NUIXZq422ov3Q==
+  dependencies:
+    "@types/unist" "^3.0.0"
+    vfile-message "^4.0.0"
+
 vite-node@1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/vite-node/-/vite-node-1.6.0.tgz#2c7e61129bfecc759478fa592754fd9704aaba7f"
@@ -16706,6 +16734,11 @@ vite@^5.0.0:
     rollup "^4.13.0"
   optionalDependencies:
     fsevents "~2.3.3"
+
+vitefu@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/vitefu/-/vitefu-0.2.5.tgz#c1b93c377fbdd3e5ddd69840ea3aa70b40d90969"
+  integrity sha512-SgHtMLoqaeeGnd2evZ849ZbACbnwQCIwRH57t18FxcXoZop0uQu0uzlIhJBlF/eWVzuce0sHeqPcDo+evVcg8Q==
 
 vitest@^1.3.1:
   version "1.6.0"
