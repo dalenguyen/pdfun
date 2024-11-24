@@ -22,7 +22,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
   selector: 'pdf-to-images',
-  standalone: true,
   imports: [
     CommonModule,
     ButtonModule,

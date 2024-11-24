@@ -11,7 +11,6 @@ import { LoginComponent, ProfileComponent } from '@pdfun/ui/auth'
 
 @Component({
   selector: 'pdf-header',
-  standalone: true,
   imports: [
     CommonModule,
     LoginComponent,

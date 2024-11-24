@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
 
 @Component({
   selector: 'pdf-newsletter',
-  standalone: true,
   imports: [CommonModule],
   template: `
     <div id="mc_embed_shell">

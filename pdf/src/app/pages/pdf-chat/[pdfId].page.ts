@@ -33,7 +33,6 @@ export const routeMeta: RouteMeta = {
 }
 
 @Component({
-  standalone: true,
   template: `
     <div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-md">
       <h2>Chat with your PDF file</h2>

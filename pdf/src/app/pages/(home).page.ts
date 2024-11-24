@@ -23,7 +23,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
   selector: 'pdf-home',
-  standalone: true,
   template: `
     <p-toast />
 

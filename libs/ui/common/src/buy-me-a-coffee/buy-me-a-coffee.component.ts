@@ -3,7 +3,6 @@ import { Component } from '@angular/core'
 
 @Component({
   selector: 'lib-buy-me-a-coffee',
-  standalone: true,
   imports: [CommonModule],
   template: `
     <section class="my-4 text-center">

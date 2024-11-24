@@ -12,11 +12,10 @@ import { MessagesModule } from 'primeng/messages'
 
 @Component({
   selector: 'pdf-shout-out',
-  standalone: true,
   imports: [CommonModule, MessagesModule],
   template: `
     @if (messages() | async; as messages) {
-    <p-messages [value]="messages" [closable]="false" />
+      <p-messages [value]="messages" [closable]="false" />
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
