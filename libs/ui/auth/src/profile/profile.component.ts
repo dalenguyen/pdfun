@@ -7,7 +7,6 @@ import { MenuModule } from 'primeng/menu'
 
 @Component({
   selector: 'lib-profile',
-  standalone: true,
   imports: [CommonModule, AvatarModule, MenuModule],
   template: `
     <p-menu #menu [model]="items" [popup]="true" />

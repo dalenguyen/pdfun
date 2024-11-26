@@ -23,7 +23,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
   selector: 'pdf-chat',
-  standalone: true,
   imports: [
     CommonModule,
     ButtonModule,

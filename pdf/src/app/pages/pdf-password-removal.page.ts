@@ -25,7 +25,6 @@ export const routeMeta: RouteMeta = {
 
 @Component({
   selector: 'pdf-password-removal',
-  standalone: true,
   imports: [
     CommonModule,
     ButtonModule,

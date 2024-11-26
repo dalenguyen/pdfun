@@ -6,7 +6,6 @@ import { NewsletterComponent } from './shared/components/newsletter/newsletter.c
 
 @Component({
   selector: 'pdf-root',
-  standalone: true,
   template: `
     <div class="flex flex-col min-h-screen">
       <pdf-header />

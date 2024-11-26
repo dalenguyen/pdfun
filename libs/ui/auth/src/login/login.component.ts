@@ -5,7 +5,6 @@ import { GOOGLE_LOGIN } from '@pdfun/angular/firebase'
 import { ButtonModule } from 'primeng/button'
 @Component({
   selector: 'lib-login',
-  standalone: true,
   imports: [CommonModule, ButtonModule],
   template: `
     <section class="m-auto text-center">

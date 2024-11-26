@@ -4,7 +4,6 @@ import { RouterLink } from '@angular/router'
 
 @Component({
   selector: 'pdf-footer',
-  standalone: true,
   imports: [CommonModule, RouterLink],
   template: `
     <footer class="bg-gray-800 py-4">

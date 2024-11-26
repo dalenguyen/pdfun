@@ -71,5 +71,6 @@
         "extensions": ["ts", "tsx", "js", "jsx", "html", "vue"]
       }
     }
-  ]
+  ],
+  "useLegacyCache": true
 }
