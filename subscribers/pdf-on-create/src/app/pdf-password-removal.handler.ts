@@ -1,5 +1,5 @@
 import { TaskResponse, UploadedFile } from '@pdfun/domain'
-import { updateDocument } from '@pdfun/firebase'
+import { updateDocument } from '@pdfun/server/firebase'
 import { downloadFile, removePassword, uploadFile } from '../services'
 
 export const handlePDFPasswordRemoval = async (

@@ -1,5 +1,5 @@
 import { FilePath, TaskResponse, UploadedFile } from '@pdfun/domain'
-import { updateDocument } from '@pdfun/firebase'
+import { updateDocument } from '@pdfun/server/firebase'
 import { downloadFile, getFileSize, resizeFile, uploadFile } from '../services'
 
 export const handlePDFResize = async (

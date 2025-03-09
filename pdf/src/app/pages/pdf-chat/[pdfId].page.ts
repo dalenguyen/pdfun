@@ -39,9 +39,8 @@ export const routeMeta: RouteMeta = {
       <small class="block mb-6">{{ fileName }}</small>
 
       @if (loading()) {
-        <p-progressBar mode="indeterminate" [style]="{ height: '6px' }" />
+        <p-progressBar [mode]="'indeterminate'" [style]="{ height: '6px' }" />
       }
-
       @let assistantId = assistant()?.id;
       @if (assistantId) {
         <section class="max-w-3xl m-auto">
@@ -69,7 +68,10 @@ export const routeMeta: RouteMeta = {
           </small>
 
           @if (responseLoading()) {
-            <p-progressBar mode="indeterminate" [style]="{ height: '6px' }" />
+            <p-progressBar
+              [mode]="'indeterminate'"
+              [style]="{ height: '6px' }"
+            />
           } @else {
             <analog-markdown [content]="response()" />
           }
@@ -91,8 +93,8 @@ export const routeMeta: RouteMeta = {
   ],
 })
 export default class PDFChatDetailComponent implements OnInit {
-  private router = inject(Router)
-  private http = inject(HttpClient)
+  private readonly router = inject(Router)
+  private readonly http = inject(HttpClient)
 
   pdfId = input.required()
 
@@ -111,6 +113,8 @@ export default class PDFChatDetailComponent implements OnInit {
   private readonly firestore: Firestore = inject(Firestore)
 
   assistant: WritableSignal<undefined | Assistant> = signal(undefined)
+
+  threadId = signal<string | null>(null)
 
   async ngOnInit(): Promise<void> {
     const docRef = doc(this.firestore, `${this.filePath}/${this.pdfId()}`)
@@ -132,20 +136,32 @@ export default class PDFChatDetailComponent implements OnInit {
 
   async sendChat(assistantId: string) {
     this.response.set('')
-
     if (this.prompt().trim() === '') return
 
     this.responseLoading.set(true)
 
-    const result = await lastValueFrom(
-      this.http.post<{ response: string }>('/api/v1/chat', {
-        prompt: this.prompt(),
-        assistantId,
-      }),
-    )
+    try {
+      const result = await lastValueFrom(
+        this.http.post<{ response: string; threadId?: string }>(
+          '/api/v1/chat',
+          {
+            prompt: this.prompt(),
+            assistantId,
+            threadId: this.threadId(),
+          },
+        ),
+      )
 
-    this.responseLoading.set(false)
-    this.prompt.set('')
-    this.response.set(result.response)
+      if (result.threadId) {
+        this.threadId.set(result.threadId)
+      }
+
+      this.response.set(result.response)
+    } catch (error) {
+      this.response.set('Error processing your request. Please try again.')
+    } finally {
+      this.responseLoading.set(false)
+      this.prompt.set('')
+    }
   }
 }

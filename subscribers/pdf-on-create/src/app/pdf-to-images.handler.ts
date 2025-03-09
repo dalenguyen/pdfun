@@ -1,5 +1,5 @@
 import { TaskResponse, UploadedFile } from '@pdfun/domain'
-import { updateDocument } from '@pdfun/firebase'
+import { updateDocument } from '@pdfun/server/firebase'
 import { convertToImages, downloadFile, uploadFile } from '../services'
 
 export const handlePDFToImages = async (

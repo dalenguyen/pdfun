@@ -3,7 +3,8 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "subscribers/pdf-on-create/src",
   "projectType": "application",
-  "tags": ["type:app"],
+  "tags": ["type:app", "scope:pdf"],
+  "implicitDependencies": ["server-firebase"],
   "targets": {
     "build": {
       "executor": "@nx/esbuild:esbuild",
@@ -27,6 +28,10 @@
           }
         }
       },
+      "dependsOn": [
+        { "target": "build", "projects": "dependencies" },
+        { "target": "build", "projects": "server-firebase" }
+      ],
       "configurations": {
         "development": {},
         "production": {

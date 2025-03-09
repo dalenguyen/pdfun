@@ -1,4 +1,4 @@
-import { getDocument } from '@pdfun/firebase'
+import { getDocument } from '@pdfun/server/firebase'
 import type { Request, Response } from 'express'
 import { addAnalytics } from './analytics.handler'
 import { handlePDFChat } from './pdf-chat.handler'

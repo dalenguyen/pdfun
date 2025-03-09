@@ -6,7 +6,6 @@ import { setDoc } from '@angular/fire/firestore'
 import { ref, uploadBytesResumable } from '@angular/fire/storage'
 import { Router } from '@angular/router'
 import { TaskType, UploadedFile } from '@pdfun/domain'
-import { BuyMeACoffeeComponent } from '@pdfun/ui/common'
 import { nanoid } from 'nanoid'
 import { ButtonModule } from 'primeng/button'
 import { FileUploadHandlerEvent, FileUploadModule } from 'primeng/fileupload'
@@ -29,7 +28,6 @@ export const routeMeta: RouteMeta = {
     ToastModule,
     ShoutOutComponent,
     FileUploadModule,
-    BuyMeACoffeeComponent,
     DisclaimerComponent,
     ProgressBarModule,
   ],
@@ -60,7 +58,7 @@ export const routeMeta: RouteMeta = {
   `,
 })
 export default class PdfChatComponent extends PdfHandlerBase {
-  private router = inject(Router)
+  private readonly router = inject(Router)
   override allowDownloadFile: WritableSignal<boolean> = signal(false)
 
   override async onUpload(event: FileUploadHandlerEvent) {
@@ -75,6 +73,7 @@ export default class PdfChatComponent extends PdfHandlerBase {
       // having default naming convention pdf-124551515.pdf
       // to prevent empty space to cause issue when resizing
       const fileName = `pdfun-${String(Date.now())}.pdf`
+      console.log('fileName', fileName)
 
       const storageRef = ref(
         this.storage,
@@ -85,6 +84,7 @@ export default class PdfChatComponent extends PdfHandlerBase {
         (this.authService.userProfile() as User) ?? {}
 
       this.currentFileSize.set(result.metadata.size)
+      console.log('result', result.state)
 
       if (result.state === 'success') {
         const uploadFileData: UploadedFile = {
@@ -104,6 +104,8 @@ export default class PdfChatComponent extends PdfHandlerBase {
         }
 
         await setDoc(this.docRef(), uploadFileData)
+
+        console.log('currentID', this.currentID())
 
         this.router.navigate([`pdf-chat/${this.currentID()}`], {
           state: {

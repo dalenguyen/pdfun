@@ -1,6 +1,6 @@
 import { openai } from '@pdfun/ai'
 import { UploadedFile } from '@pdfun/domain'
-import { updateDocument } from '@pdfun/firebase'
+import { updateDocument } from '@pdfun/server/firebase'
 import fs from 'fs'
 import type { Assistant } from 'openai/resources/beta/assistants'
 import type { VectorStore } from 'openai/resources/beta/vector-stores/vector-stores'

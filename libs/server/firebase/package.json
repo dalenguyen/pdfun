@@ -1,5 +1,5 @@
 {
-  "name": "@pdfun/firebase",
+  "name": "@pdfun/server/firebase",
   "version": "0.0.1",
   "dependencies": {
     "@google-cloud/firestore": "^7.7.0",

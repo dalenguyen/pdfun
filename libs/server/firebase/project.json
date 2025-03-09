@@ -1,9 +1,9 @@
 {
-  "name": "firebase",
+  "name": "server-firebase",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/server/firebase/src",
   "projectType": "library",
-  "tags": [],
+  "tags": ["scope:pdf", "type:lib"],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
