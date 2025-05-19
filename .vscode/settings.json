@@ -15,5 +15,6 @@
       "skipStyle": true
     }
   },
-  "svg.preview.background": "white"
+  "svg.preview.background": "white",
+  "nxConsole.generateAiAgentRules": true
 }
