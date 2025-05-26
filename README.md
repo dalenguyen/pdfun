@@ -37,6 +37,7 @@ Run the following command to set the default credentials
 
 ```
 gcloud auth application-default login
+gcloud config set project YOUR_PROJECT
 ```
 
 OR you create a new service account and use it locally

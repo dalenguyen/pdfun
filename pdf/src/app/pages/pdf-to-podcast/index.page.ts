@@ -1,0 +1,135 @@
+import { RouteMeta } from '@analogjs/router'
+import { CommonModule } from '@angular/common'
+import { Component, inject, signal, WritableSignal } from '@angular/core'
+import { User } from '@angular/fire/auth'
+import { setDoc } from '@angular/fire/firestore'
+import { ref, uploadBytesResumable } from '@angular/fire/storage'
+import { Router } from '@angular/router'
+import { TaskType, UploadedFile } from '@pdfun/domain'
+import { nanoid } from 'nanoid'
+import { ButtonModule } from 'primeng/button'
+import { FileUploadHandlerEvent, FileUploadModule } from 'primeng/fileupload'
+import { ProgressBarModule } from 'primeng/progressbar'
+import { ToastModule } from 'primeng/toast'
+import { DisclaimerComponent } from '../../shared/components/disclaimer/disclaimer.component'
+import { PdfHandlerBase } from '../../shared/components/pdf-handler-base/pdf-handler-base.directive'
+import { ShoutOutComponent } from '../../shared/components/shout-out/shout-out.component'
+import { getNextDays } from '../../shared/utils'
+
+export const routeMeta: RouteMeta = {
+  title: 'PDFun - PDF to Podcast',
+}
+
+@Component({
+  selector: 'pdf-to-podcast',
+  imports: [
+    CommonModule,
+    ButtonModule,
+    ToastModule,
+    ShoutOutComponent,
+    FileUploadModule,
+    DisclaimerComponent,
+    ProgressBarModule,
+  ],
+  template: `
+    <p-toast />
+    <div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-md">
+      <pdf-shout-out [type]="TaskType.PDF_TO_PODCAST" />
+
+      <p-fileUpload
+        mode="advanced"
+        chooseLabel="Choose a PDF file"
+        accept="application/pdf"
+        name="myfile"
+        maxFileSize="1000000"
+        fileLimit="1"
+        uploadLabel="Upload & Convert to Podcast"
+        (uploadHandler)="onUpload($event)"
+        [customUpload]="true"
+        class="mb-4"
+        [invalidFileSizeMessageSummary]="'File size is too large'"
+        [invalidFileSizeMessageDetail]="'Maximum file size is 1MB'"
+      />
+
+      @if (loading()) {
+        <p-progressBar mode="indeterminate" [style]="{ height: '6px' }" />
+      }
+
+      <div class="text-sm text-gray-500 mt-2">
+        <p>Recommended: PDF files up to 1MB</p>
+        <p>Larger files may take longer to process and convert.</p>
+      </div>
+
+      <pdf-disclaimer class="mt-8" />
+    </div>
+  `,
+})
+export default class PdfToPodcastComponent extends PdfHandlerBase {
+  private readonly router = inject(Router)
+  override allowDownloadFile: WritableSignal<boolean> = signal(false)
+
+  override async onUpload(event: FileUploadHandlerEvent) {
+    // set a new document Id if users want to retry without reloading the page
+    this.currentID.set(nanoid())
+
+    const file = event.files[0]
+
+    if (file) {
+      // Check file size (1MB = 1 * 1024 * 1024 bytes)
+      const maxSize = 1 * 1024 * 1024
+      if (file.size > maxSize) {
+        this.errorMessage.set(
+          'File size exceeds 1MB limit. Please choose a smaller PDF file.',
+        )
+        this.loading.set(false)
+        return
+      }
+
+      this.loading.set(true)
+
+      // having default naming convention pdf-124551515.pdf
+      // to prevent empty space to cause issue when resizing
+      const fileName = `pdfun-${String(Date.now())}.pdf`
+
+      const storageRef = ref(
+        this.storage,
+        `${this.generateFilePath()}/${fileName}`,
+      )
+      const result = await uploadBytesResumable(storageRef, file)
+      const { uid = 'anonymous' } =
+        (this.authService.userProfile() as User) ?? {}
+
+      this.currentFileSize.set(result.metadata.size)
+
+      if (result.state === 'success') {
+        const uploadFileData: UploadedFile = {
+          fileName,
+          contentType: result.metadata.contentType,
+          filePath: this.generateFilePath(),
+          size: result.metadata.size,
+          createdAt: new Date().toISOString(),
+          updatedAt: result.metadata.updated,
+          pdfId: this.currentID(),
+          uid,
+          taskType: TaskType.PDF_TO_PODCAST,
+          // reset task response
+          taskResponse: null,
+          // Document will be deleted in 1 day
+          expiresOn: getNextDays(),
+        }
+
+        await setDoc(this.docRef(), uploadFileData)
+
+        this.router.navigate([`pdf-to-podcast/${this.currentID()}`], {
+          state: {
+            filePath: this.generateFilePath(),
+            fileName: file.name,
+          },
+        })
+      } else {
+        this.loading.set(false)
+        this.errorMessage.set('Failed to upload file. Please try again later.')
+      }
+    }
+  }
+}

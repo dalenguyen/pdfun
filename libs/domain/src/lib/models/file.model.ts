@@ -5,12 +5,15 @@ export enum TaskType {
   IMAGE_CONVERSION = 'IMAGE_CONVERSION',
   PASSWORD_REMOVAL = 'PASSWORD_REMOVAL',
   PDF_CHAT = 'PDF_CHAT',
+  PDF_TO_PODCAST = 'PDF_TO_PODCAST',
 }
 
 export interface TaskResponse {
   success: boolean
   fileName: string
   error?: string
+  status?: 'completed' | 'failed' | 'processing'
+  script?: string
 }
 
 export interface UploadedFile {

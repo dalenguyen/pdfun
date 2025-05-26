@@ -5,6 +5,7 @@ import { handlePDFChat } from './pdf-chat.handler'
 import { handlePDFPasswordRemoval } from './pdf-password-removal.handler'
 import { handlePDFResize } from './pdf-resize.handler'
 import { handlePDFToImages } from './pdf-to-images.handler'
+import { handlePDFToPodcast } from './pdf-to-podcast.handler'
 
 export const handler = async (req: Request, res: Response) => {
   const documentPath = req.headers['ce-document'] as string
@@ -23,7 +24,7 @@ export const handler = async (req: Request, res: Response) => {
   const uploadedFileData = await getDocument(documentPath)
 
   // Prevent duplication events
-  if (uploadedFileData.taskResponse?.fileName) {
+  if (uploadedFileData?.taskResponse?.fileName) {
     console.log(`Document is already processed!`)
     return res.json({ success: 'true' })
   }
@@ -46,10 +47,13 @@ export const handler = async (req: Request, res: Response) => {
       await handlePDFChat(uploadedFileData, documentPath)
       break
 
+    case 'PDF_TO_PODCAST':
+      await handlePDFToPodcast(uploadedFileData, documentPath)
+      break
+
     default:
       console.log(`${uploadedFileData.taskType} has no handler!`)
       return res.json({ success: false })
-      break
   }
 
   await addAnalytics(uploadedFileData)

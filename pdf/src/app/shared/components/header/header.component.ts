@@ -43,7 +43,7 @@ import { LoginComponent, ProfileComponent } from '@pdfun/ui/auth'
                 routerLinkActive="active"
                 class="link"
               >
-                Resize PDF
+                Resize
               </a>
               <a
                 routerLink="/pdf-chat"
@@ -58,7 +58,7 @@ import { LoginComponent, ProfileComponent } from '@pdfun/ui/auth'
                 routerLinkActive="active"
                 class="link"
               >
-                PDF to Images
+                Images Conversion
               </a>
               <a
                 routerLink="/pdf-password-removal"
@@ -66,6 +66,13 @@ import { LoginComponent, ProfileComponent } from '@pdfun/ui/auth'
                 class="link"
               >
                 Password Removal
+              </a>
+              <a
+                routerLink="/pdf-to-podcast"
+                routerLinkActive="active"
+                class="link"
+              >
+                Podcast
               </a>
             </div>
           </nav>
@@ -94,7 +101,7 @@ import { LoginComponent, ProfileComponent } from '@pdfun/ui/auth'
             class="link"
             (click)="toggleMobileMenu()"
           >
-            Resize PDF
+            Resize
           </a>
 
           <a
@@ -111,7 +118,7 @@ import { LoginComponent, ProfileComponent } from '@pdfun/ui/auth'
             routerLinkActive="active"
             class="link"
             (click)="toggleMobileMenu()"
-            >PDF to Images
+            >Images Conversion
           </a>
           <a
             routerLink="/pdf-password-removal"
@@ -120,6 +127,14 @@ import { LoginComponent, ProfileComponent } from '@pdfun/ui/auth'
             (click)="toggleMobileMenu()"
           >
             Password Removal
+          </a>
+          <a
+            routerLink="/pdf-to-podcast"
+            routerLinkActive="active"
+            class="link"
+            (click)="toggleMobileMenu()"
+          >
+            Podcast
           </a>
         </div>
       </div>
