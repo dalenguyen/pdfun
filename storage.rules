@@ -2,14 +2,14 @@ service firebase.storage {
   match /b/{bucket}/o {
 
     // PUBLIC RULES
-    match /public/{imageId} {
+    match /public/{fileId} {
       // only allow public file to be uploaded
       // with this pattern `pdfun-1245515151515.pdf`
-      allow write: if imageId.matches("pdfun-.*\\.pdf");
+      allow write: if fileId.matches("pdfun-.*\\.pdf");
 
       // only allow public resized files to be read
       // with this pattern `RESIZE-pdfun-1245515151515.pdf`
-      allow read: if imageId.matches("RESIZE-pdfun-.*\\.pdf") || imageId.matches("PASSWORD_REMOVAL-pdfun-.*\\.pdf") || imageId.matches(".*\\.zip");
+      allow read: if fileId.matches("RESIZE-pdfun-.*\\.pdf") || fileId.matches("PASSWORD_REMOVAL-pdfun-.*\\.pdf") || fileId.matches(".*\\.zip") || fileId.matches(".*\\.mp3");
     }
 
     // PRIVATE RULES

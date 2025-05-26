@@ -8,7 +8,8 @@
     "deploy": "npx nx affected -t deploy --base=main~1 --head=main",
     "dep-graph": "npx nx dep-graph",
     "prepare": "husky",
-    "deploy:rules": "firebase deploy --only storage,firestore"
+    "deploy:rules": "firebase deploy --only storage,firestore",
+    "deploy:storage": "firebase deploy --only storage"
   },
   "author": "Dale Nguyen <dale@dalenguyen.me>",
   "keywords": [
