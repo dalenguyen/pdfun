@@ -139,8 +139,6 @@ export const handlePDFToPodcast = async (
       })
       .filter((turn) => turn !== null && turn.text.length > 0)
 
-    console.log(`[PDF to Podcast] Conversation turns:`, conversationTurns)
-
     // Process each turn separately
     const audioBuffers = []
     for (const turn of conversationTurns) {
