@@ -3,7 +3,7 @@ import { UploadedFile } from '@pdfun/domain'
 import { updateDocument } from '@pdfun/server/firebase'
 import fs from 'fs'
 import type { Assistant } from 'openai/resources/beta/assistants'
-import type { VectorStore } from 'openai/resources/beta/vector-stores/vector-stores'
+import { VectorStore } from 'openai/resources/index'
 import { downloadFile } from '../services'
 
 export const handlePDFChat = async (
@@ -45,7 +45,7 @@ const uploadLoadFileAndAddToVectorStore = async (
   const fileStreams = [filePath].map((path) => fs.createReadStream(path))
 
   // Create a vector store including our files.
-  const vectorStore = await openai.beta.vectorStores.create({
+  const vectorStore = await openai.vectorStores.create({
     name: `PDF File Store - ${String(Date.now())}`,
     expires_after: {
       anchor: 'last_active_at',
@@ -54,7 +54,7 @@ const uploadLoadFileAndAddToVectorStore = async (
     },
   })
 
-  await openai.beta.vectorStores.fileBatches.uploadAndPoll(vectorStore.id, {
+  await openai.vectorStores.fileBatches.uploadAndPoll(vectorStore.id, {
     files: fileStreams,
   })
 
