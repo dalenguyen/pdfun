@@ -36,9 +36,9 @@
 		{
 			"id": "pointer:pointer",
 			"typeName": "pointer",
-			"x": 124.00720063778272,
-			"y": -196.4819020157468,
-			"lastActivityTimestamp": 1748232505519,
+			"x": 993.5424770538742,
+			"y": 279.572086972228,
+			"lastActivityTimestamp": 1748232615958,
 			"meta": {}
 		},
 		{
@@ -181,6 +181,24 @@
 		},
 		{
 			"meta": {},
+			"id": "binding:SQ-iqCLow3U262GomqfWz",
+			"type": "arrow",
+			"fromId": "shape:TxPycJUEz0XFrcAXXwEfx",
+			"toId": "shape:Dp27MtK7pDNhYgZ2_LkZ4",
+			"props": {
+				"isPrecise": true,
+				"isExact": false,
+				"normalizedAnchor": {
+					"x": 0.956260800970533,
+					"y": 0.6010096755993836
+				},
+				"snap": "none",
+				"terminal": "end"
+			},
+			"typeName": "binding"
+		},
+		{
+			"meta": {},
 			"id": "binding:m7hqcSWtNtJ7IwJhwpzph",
 			"type": "arrow",
 			"fromId": "shape:p5LZQLqEYSwuYoBxfe2JE",
@@ -198,8 +216,8 @@
 			"typeName": "binding"
 		},
 		{
-			"x": 84.58551164065298,
-			"y": 708.0180979321752,
+			"x": -4.893071536347698,
+			"y": 567.0215426229603,
 			"z": 0.4425640140703103,
 			"meta": {},
 			"id": "camera:page:page",
@@ -242,8 +260,8 @@
 			"typeName": "binding"
 		},
 		{
-			"x": 816.5133752629578,
-			"y": -31.157026004065557,
+			"x": 805.4344419309488,
+			"y": -128.48405482325623,
 			"rotation": 0,
 			"isLocked": false,
 			"opacity": 1,
@@ -358,12 +376,12 @@
 			"typeName": "binding"
 		},
 		{
-			"editingShapeId": "shape:2PJwcLPpi6G6kNFP8iATl",
+			"editingShapeId": null,
 			"croppingShapeId": null,
 			"selectedShapeIds": [
-				"shape:2PJwcLPpi6G6kNFP8iATl"
+				"shape:p5LZQLqEYSwuYoBxfe2JE"
 			],
-			"hoveredShapeId": "shape:2PJwcLPpi6G6kNFP8iATl",
+			"hoveredShapeId": null,
 			"erasingShapeIds": [],
 			"hintingShapeIds": [],
 			"focusedGroupId": null,
@@ -557,6 +575,24 @@
 		},
 		{
 			"meta": {},
+			"id": "binding:H2Ajp6ThNEnruPT6DCM81",
+			"type": "arrow",
+			"fromId": "shape:TxPycJUEz0XFrcAXXwEfx",
+			"toId": "shape:5_lfQrlLNILNU_RYZUTJ-",
+			"props": {
+				"isPrecise": true,
+				"isExact": false,
+				"normalizedAnchor": {
+					"x": 0.701743356975483,
+					"y": 0.219371609326806
+				},
+				"snap": "none",
+				"terminal": "start"
+			},
+			"typeName": "binding"
+		},
+		{
+			"meta": {},
 			"id": "binding:7sDf5ySxXgRa8PJ6rUhcj",
 			"type": "arrow",
 			"fromId": "shape:Xhl0PPHApzohHk-i5lvym",
@@ -572,6 +608,43 @@
 				"snap": "none"
 			},
 			"typeName": "binding"
+		},
+		{
+			"x": 935.1398603804305,
+			"y": 291.6678467117446,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:TxPycJUEz0XFrcAXXwEfx",
+			"type": "arrow",
+			"props": {
+				"kind": "arc",
+				"elbowMidPoint": 0.5,
+				"dash": "draw",
+				"size": "m",
+				"fill": "none",
+				"color": "black",
+				"labelColor": "black",
+				"bend": 40.636516120502094,
+				"start": {
+					"x": 0,
+					"y": 0
+				},
+				"end": {
+					"x": 2,
+					"y": 0
+				},
+				"arrowheadStart": "none",
+				"arrowheadEnd": "arrow",
+				"text": "upload audio",
+				"labelPosition": 0.5,
+				"font": "draw",
+				"scale": 1
+			},
+			"parentId": "page:page",
+			"index": "aAfdN",
+			"typeName": "shape"
 		},
 		{
 			"x": 520.5744618094541,
@@ -607,7 +680,7 @@
 				"elbowMidPoint": 0.5
 			},
 			"parentId": "page:page",
-			"index": "aFOvl",
+			"index": "a8V3CU",
 			"typeName": "shape"
 		},
 		{
@@ -816,7 +889,7 @@
 				},
 				"arrowheadStart": "none",
 				"arrowheadEnd": "arrow",
-				"text": "download",
+				"text": "download pdf",
 				"labelPosition": 0.1953259818895633,
 				"font": "draw",
 				"scale": 1,
@@ -875,13 +948,13 @@
 			"id": "binding:cjxuNboPORfMEi78lN-8_",
 			"type": "arrow",
 			"fromId": "shape:p5LZQLqEYSwuYoBxfe2JE",
-			"toId": "shape:yIqaffYP1oRmDvMFjZlAd",
+			"toId": "shape:5_lfQrlLNILNU_RYZUTJ-",
 			"props": {
 				"isPrecise": true,
 				"isExact": false,
 				"normalizedAnchor": {
-					"x": 0.6114536763150091,
-					"y": 0.7319471226321161
+					"x": 0.9134190362621979,
+					"y": 0.013504043324454252
 				},
 				"snap": "none",
 				"terminal": "start"
@@ -1028,7 +1101,7 @@
 			"brush": null,
 			"scribbles": [],
 			"cursor": {
-				"type": "default",
+				"type": "grabbing",
 				"rotation": 0
 			},
 			"isFocusMode": false,
